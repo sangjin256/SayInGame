@@ -3,6 +3,7 @@ using Unity.FPS.Game;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace Unity.FPS.AI
 {
@@ -371,6 +372,13 @@ namespace Unity.FPS.AI
             {
                 Instantiate(LootPrefab, transform.position, Quaternion.identity);
             }
+
+            CurrencyManager.Instance.Add(ECurrencyType.Gold, 100);
+
+            AchievementEvent achieveEvent = Events.AchievementEvent;
+            achieveEvent.condition = EAchievementCondition.DronKillCount;
+            achieveEvent.value = 1;
+            EventManager.Broadcast(achieveEvent);
 
             // this will call the OnDestroy function
             Destroy(gameObject, DeathDuration);

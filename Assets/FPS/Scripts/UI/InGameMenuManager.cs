@@ -33,6 +33,8 @@ namespace Unity.FPS.UI
         Health m_PlayerHealth;
         FramerateCounter m_FramerateCounter;
 
+        public GameObject UI_Achievement;
+
         void Start()
         {
             m_PlayerInputsHandler = FindObjectOfType<PlayerInputHandler>();
@@ -122,6 +124,8 @@ namespace Unity.FPS.UI
                 Cursor.visible = false;
                 Time.timeScale = 1f;
                 AudioUtility.SetMasterVolume(1);
+
+                UI_Achievement.SetActive(false);
             }
 
         }
@@ -149,6 +153,11 @@ namespace Unity.FPS.UI
         public void OnShowControlButtonClicked(bool show)
         {
             ControlImage.SetActive(show);
+        }
+
+        public void OnAchievementButtonClicked()
+        {
+            UI_Achievement.SetActive(true);
         }
     }
 }
