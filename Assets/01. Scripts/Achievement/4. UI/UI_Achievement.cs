@@ -6,7 +6,8 @@ using Unity.VisualScripting;
 
 public class UI_Achievement : MonoBehaviour
 {
-    [SerializeField]
+    public GameObject AchievementSlotPrefab;
+    public Transform SlotParent;
     private List<UI_AchievementSlot> _slots;
 
     [SerializeField]
@@ -16,12 +17,26 @@ public class UI_Achievement : MonoBehaviour
 
     private void Start()
     {
-        Refresh();
+        InitSlots();
+
         _notificationRectTransform = _notification.GetComponent<RectTransform>();
         _notificationStartPosition = _notificationRectTransform.anchoredPosition;
-        Debug.Log(_notificationStartPosition);
+
         AchievementManager.Instance.OnDataChanged += Refresh;
         AchievementManager.Instance.OnNewAchievementRewarded += ShowNotification;
+    }
+
+    private void InitSlots()
+    {
+        List<AchievementDTO> achievements = AchievementManager.Instance.Achievements;
+        _slots = new List<UI_AchievementSlot>();
+
+        for (int i = 0; i < achievements.Count; i++)
+        {
+            UI_AchievementSlot slot = Instantiate(AchievementSlotPrefab, SlotParent).GetComponent<UI_AchievementSlot>();
+            slot.Refresh(achievements[i]);
+            _slots.Add(slot);
+        }
     }
 
     private void Refresh()
