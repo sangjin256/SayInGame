@@ -9,14 +9,32 @@ public class UI_AttendanceSlot : MonoBehaviour
     public TextMeshProUGUI RewardAmountText;
     public Button RewardButton;
 
-    //public void Init(AttendanceDTO attendance)
-    //{
-    //    // √ ±‚»≠, πˆ∆∞ ¿Œ≈Õ∑∫≈Õ∫Ìµµ √º≈©
-                
-    //}
+    public void Init(int day, AttendanceCalendarDTO dto, AttendanceSO so)
+    {
+        if (dto.Entries[day - 1].IsRewardClaimed)
+        {
+            AttendanceInfoText.text = "»πµÊ øœ∑·";
+            RewardButton.interactable = false;
+        }
+        else if (dto.Entries[day - 1].IsChecked)
+        {
+            AttendanceInfoText.text = "»πµÊ ∞°¥…";
+            RewardButton.interactable = false;
+        }
+        else
+        {
+            AttendanceInfoText.text = $"{day}¿œ¬˜";
+            RewardButton.interactable = true;
+        }
 
-    //public void Refresh(AttendanceDTO attendance)
-    //{
-    //    //AttendanceInfoText.text = // ¿œ¿⁄ or »πµÊ øœ∑· or »πµÊ ∞°¥…
-    //}
+        if (so.Attendances[day - 1].Type == ECurrencyType.Gold) RewardInfoText.text = "∞ÒµÂ";
+        else if (so.Attendances[day - 1].Type == ECurrencyType.Diamond) RewardInfoText.text = "¥Ÿ¿Ãæ∆";
+
+        RewardAmountText.text = so.Attendances[day - 1].Value.ToString();
+    }
+
+    public void Refresh(AttendanceCalendarDTO attendance)
+    {
+        //AttendanceInfoText.text = // ¿œ¿⁄ or »πµÊ øœ∑· or »πµÊ ∞°¥…
+    }
 }
