@@ -14,9 +14,14 @@ public class DailyAttendanceEntrySaveData
 public class AttendanceCalendarSaveData
 {
     public string Email;
-    public DateTime LastAttendanceDate;
+    public string LastAttendanceDate;
     public int AccumulatedAttendanceDay;
     public SaveDatas<DailyAttendanceEntrySaveData> DailyAttendanceEntries;
+    
+    public AttendanceCalendarSaveData()
+    {
+        DailyAttendanceEntries = new SaveDatas<DailyAttendanceEntrySaveData>();
+    }
 }
 
 public class AttendanceCalendarRepository

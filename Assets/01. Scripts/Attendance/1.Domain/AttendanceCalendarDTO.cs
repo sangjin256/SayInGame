@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class AttendanceCalendarDTO
 {
     public readonly string Email;
-    public readonly DateTime LastAttendanceDate;
+    public readonly string LastAttendanceDate;
     public readonly int AccumulatedAttendanceDay;
     public readonly Dictionary<int, DailyAttendanceEntryDTO> Entries;
     
@@ -44,6 +44,7 @@ public class AttendanceCalendarDTO
             DailyAttendanceEntries = new SaveDatas<DailyAttendanceEntrySaveData>()
         };
 
+        saveData.DailyAttendanceEntries.DataList = new List<DailyAttendanceEntrySaveData>();
         foreach (var kvp in Entries)
         {
             saveData.DailyAttendanceEntries.DataList.Add(new DailyAttendanceEntrySaveData

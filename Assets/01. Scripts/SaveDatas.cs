@@ -1,7 +1,9 @@
+using System;
 using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
 
+[Serializable]
 public struct SaveDatas<T>
 {
     public List<T> DataList;
