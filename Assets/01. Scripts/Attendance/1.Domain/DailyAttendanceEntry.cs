@@ -13,18 +13,27 @@ public class DailyAttendanceEntry
     
     public void Attendance()
     {
-        IsChecked = true;
+        if (!IsChecked)
+        {
+            IsChecked = true;
+        }
     }
 
-    public void ClaimReward()
+    private bool CanClaimReward()
     {
-        if (IsChecked && !IsRewardClaimed)
+        return IsChecked && !IsRewardClaimed;
+    }
+
+    public bool TryClaimReward()
+    {
+        if (CanClaimReward())
         {
             IsRewardClaimed = true;
+            return true;
         }
         else
         {
-            throw new Exception("Cannot claim reward: either not checked in or already claimed.");
+            return false;
         }
     }
 }

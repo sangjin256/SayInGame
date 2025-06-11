@@ -50,4 +50,18 @@ public class AttendanceCalendar
             throw new Exception("Cannot attend: already attended today.");
         }
     }
+    
+    public bool TryClaimReward(int day)
+    {
+        if (_entries.TryGetValue(day, out var entry))
+        {
+            return entry.TryClaimReward();
+        }
+        else
+        {
+            throw new Exception($"No attendance entry found for day {day}.");
+        }
+
+        return false;
+    }
 }
