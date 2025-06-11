@@ -3,6 +3,12 @@ public class DailyAttendanceEntryDTO
     public readonly bool IsChecked;
     public readonly bool IsRewardClaimed;
 
+    public DailyAttendanceEntryDTO(bool isChecked = false, bool isRewardClaimed = false)
+    {
+        IsChecked = isChecked;
+        IsRewardClaimed = isRewardClaimed;
+    }
+    
     public DailyAttendanceEntryDTO(DailyAttendanceEntry entry)
     {
         IsChecked = entry.IsChecked;

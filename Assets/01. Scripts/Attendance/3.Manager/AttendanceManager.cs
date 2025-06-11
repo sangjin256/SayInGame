@@ -8,8 +8,8 @@ public class AttendanceManager : BehaviourSingleton<AttendanceManager>
 {
     private AttendanceCalendar _attendanceCalendar;
     public AttendanceCalendarDTO Attendance => new AttendanceCalendarDTO(_attendanceCalendar);
-    // ·¹Æ÷ÁöÅä¸® Ãß°¡
-    //private AttendanceRepository _repository;
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä¸® ï¿½ß°ï¿½
+    private AttendanceCalendarRepository _repository;
     [SerializeField]
     private List<AttendanceSO> _metaDatas;
     public AttendanceSO currentData;
@@ -29,17 +29,17 @@ public class AttendanceManager : BehaviourSingleton<AttendanceManager>
         currentData = _metaDatas.Find(x => x.Month == now.Month);
         if(currentData == null)
         {
-            throw new Exception("SO µ¥ÀÌÅÍ°¡ ¾ø½À´Ï´Ù.");
+            throw new Exception("SO ï¿½ï¿½ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
         }
 
         string email = AccountManager.Instance.CurrencAccount?.Email;
         if (email.IsNullOrEmpty())
         {
-            throw new Exception("·Î±×ÀÎ µ¥ÀÌÅÍ°¡ ¾ø½À´Ï´Ù.");
+            throw new Exception("ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
         }
 
-        _repository = new AttendanceRepository();
-        AttendanceCalendarDTO loadedData = _repository.Load();
+        _repository = new AttendanceCalendarRepository();
+        AttendanceCalendarDTO loadedData = _repository.Load(email);
         if (loadedData == null)
         {
             _attendanceCalendar = new AttendanceCalendar(email, currentData.Attendances.Count);
