@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.Tutorials.Core.Editor;
 using UnityEngine;
+using Unity.FPS.Game;
 
 public class AttendanceManager : BehaviourSingleton<AttendanceManager>
 {
@@ -56,9 +57,16 @@ public class AttendanceManager : BehaviourSingleton<AttendanceManager>
 
     public void Attend()
     {
-        _attendanceCalendar.TryAttendance(DateTime.Today);
-        _repository.Save(new AttendanceCalendarDTO(_attendanceCalendar));
-        OnDataChanged?.Invoke();
+        if (_attendanceCalendar.TryAttendance(DateTime.Today))
+        {
+            AchievementEvent achieveEvent = Events.AchievementEvent;
+            achieveEvent.condition = EAchievementCondition.AttendanceCount;
+            achieveEvent.value = 1;
+            EventManager.Broadcast(achieveEvent);
+
+            _repository.Save(new AttendanceCalendarDTO(_attendanceCalendar));
+            OnDataChanged?.Invoke();
+        }
     }
     
     public bool TryClaimReward(int day)

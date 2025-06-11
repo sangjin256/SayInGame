@@ -9,6 +9,8 @@ public class UI_Attendance : MonoBehaviour
     public TextMeshProUGUI AccumulateAttendanceText;
 
     private List<UI_AttendanceSlot> _attendacneSlots;
+    [SerializeField]
+    //private 
 
     public void Awake()
     {
