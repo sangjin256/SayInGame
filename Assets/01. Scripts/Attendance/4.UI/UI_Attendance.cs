@@ -13,23 +13,26 @@ public class UI_Attendance : MonoBehaviour
     [SerializeField]
     private List<UI_AttendanceSlot> _accumulatedAttendacneSlots;
 
-    public void Start()
+    public void Awake()
     {
-        InitSlots();
+        AttendanceManager.Instance.OnDataLoaded += InitSlots;
+        AttendanceManager.Instance.OnDataChanged += Refresh;
     }
 
     private void InitSlots()
     {
-        //List<AttendanceDTO> attendances = AttendanceManager.Instance.Attendances;
-        //_slots = new List<UI_AttendanceSlot>();
+        AttendanceCalendarDTO attendance = AttendanceManager.Instance.Attendance;
+        AttendanceSO so = AttendanceManager.Instance.currentData;
+        _attendacneSlots = new List<UI_AttendanceSlot>();
 
-        //for (int i = 0; i < attendances.Count; i++)
-        //{
-        //    UI_AttendanceSlot slot = Instantiate(AttendanceSlotPrefab, SlotParent).GetComponent<UI_AttendanceSlot>();
-        //    slot.Init(attendances[i]);
-        //    _slots.Add(slot);
-        //}
+        for (int i = 0; i < so.Attendances.Count; i++)
+        {
+            UI_AttendanceSlot slot = Instantiate(AttendanceSlotPrefab, SlotParent).GetComponent<UI_AttendanceSlot>();
+            slot.Init(so.Attendances[i].Day, attendance, so);
+            _attendacneSlots.Add(slot);
+        }
     }
+
     private void Refresh()
     {
         //List<AttendanceDTO> attendances = AttendanceManager.Instance.Attendances;

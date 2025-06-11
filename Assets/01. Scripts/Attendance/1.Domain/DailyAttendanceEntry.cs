@@ -11,6 +11,12 @@ public class DailyAttendanceEntry
         IsRewardClaimed = false;
     }
     
+    public DailyAttendanceEntry(bool isChecked, bool isRewardClaimed)
+    {
+        IsChecked = isChecked;
+        IsRewardClaimed = isRewardClaimed;
+    }
+
     public void Attendance()
     {
         IsChecked = true;
