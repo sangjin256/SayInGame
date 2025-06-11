@@ -20,6 +20,8 @@ public class AttendanceManager : BehaviourSingleton<AttendanceManager>
     public void Start()
     {
         Init();
+        Attend();
+        OnDataChanged?.Invoke();
     }
 
     public void Init()
@@ -53,6 +55,11 @@ public class AttendanceManager : BehaviourSingleton<AttendanceManager>
         OnDataLoaded?.Invoke();
     }
 
+    public void Attend()
+    {
+        _attendanceCalendar.Attendance(DateTime.Today);
+    }
+    
     public bool TryClaimReward(int day)
     {
         if (_attendanceCalendar.TryClaimReward(day))

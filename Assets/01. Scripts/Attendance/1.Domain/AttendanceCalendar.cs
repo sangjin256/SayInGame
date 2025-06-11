@@ -45,10 +45,6 @@ public class AttendanceCalendar
                 _entries[_accumulatedAttendanceDay].Attendance();
             }
         }
-        else
-        {
-            throw new Exception("Cannot attend: already attended today.");
-        }
     }
     
     public bool TryClaimReward(int day)
