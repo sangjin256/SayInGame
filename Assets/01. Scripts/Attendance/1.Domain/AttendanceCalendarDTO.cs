@@ -44,6 +44,7 @@ public class AttendanceCalendarDTO
             DailyAttendanceEntries = new SaveDatas<DailyAttendanceEntrySaveData>()
         };
 
+        saveData.DailyAttendanceEntries.DataList = new List<DailyAttendanceEntrySaveData>();
         foreach (var kvp in Entries)
         {
             saveData.DailyAttendanceEntries.DataList.Add(new DailyAttendanceEntrySaveData

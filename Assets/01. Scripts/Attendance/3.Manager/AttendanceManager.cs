@@ -21,7 +21,6 @@ public class AttendanceManager : BehaviourSingleton<AttendanceManager>
     {
         Init();
         Attend();
-        OnDataChanged?.Invoke();
     }
 
     public void Init()
@@ -59,6 +58,7 @@ public class AttendanceManager : BehaviourSingleton<AttendanceManager>
     {
         _attendanceCalendar.Attendance(DateTime.Today);
         _repository.Save(new AttendanceCalendarDTO(_attendanceCalendar));
+        OnDataChanged?.Invoke();
     }
     
     public bool TryClaimReward(int day)

@@ -10,6 +10,7 @@ public enum EAchievementCondition
     BossKillCount,
     PlayTime,
     Trigger,
+    AttendanceCount,
 }
 
 public class Achievement

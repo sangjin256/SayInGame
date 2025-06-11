@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1df0fdf1c47cc8849b40ab719e525c80, type: 3}
+  m_Name: ACH_ATD_001
+  m_EditorClassIdentifier: 
+  _id: ACH_ATD_001
+  _name: "\uB098\uB294\uC57C \uCD9C\uC11D\uC655"
+  _description: "\uCD9C\uC11D 3\uD68C \uB2EC\uC131"
+  _condition: 5
+  _goalValue: 3
+  _rewardCurrencyType: 1
+  _rewardAmount: 10

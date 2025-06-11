@@ -42,6 +42,7 @@ public class AccountManager : BehaviourSingleton<AccountManager>
     public bool TryLogin(string email, string password)
     {
         AccountDTO accountDTO = _accountRepository.Find(email);
+        if (accountDTO == null) return false;
 
         if (CryptoUtil.Verify(password, accountDTO.Password, SALT))
         {

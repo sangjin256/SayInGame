@@ -10,9 +10,6 @@ public class UI_Attendance : MonoBehaviour
 
     private List<UI_AttendanceSlot> _attendacneSlots;
 
-    [SerializeField]
-    private List<UI_AttendanceSlot> _accumulatedAttendacneSlots;
-
     public void Awake()
     {
         AttendanceManager.Instance.OnDataLoaded += InitSlots;
