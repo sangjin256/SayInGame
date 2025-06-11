@@ -58,6 +58,7 @@ public class AttendanceManager : BehaviourSingleton<AttendanceManager>
     public void Attend()
     {
         _attendanceCalendar.Attendance(DateTime.Today);
+        _repository.Save(new AttendanceCalendarDTO(_attendanceCalendar));
     }
     
     public bool TryClaimReward(int day)
@@ -67,6 +68,7 @@ public class AttendanceManager : BehaviourSingleton<AttendanceManager>
             AttendanceInfo attendanceInfo = currentData.Attendances[day - 1];
             CurrencyManager.Instance.Add(attendanceInfo.Type, attendanceInfo.Value);
             OnDataChanged?.Invoke();
+            _repository.Save(new AttendanceCalendarDTO(_attendanceCalendar));
             return true;
         }
 
