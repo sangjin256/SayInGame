@@ -21,12 +21,12 @@ public class UI_AttendanceSlot : MonoBehaviour
         else if (dto.Entries[day].IsChecked)
         {
             AttendanceInfoText.text = "È¹µæ °¡´É";
-            RewardButton.interactable = false;
+            RewardButton.interactable = true;
         }
         else
         {
             AttendanceInfoText.text = $"{day}ÀÏÂ÷";
-            RewardButton.interactable = true;
+            RewardButton.interactable = false;
         }
 
         if (so.Attendances[day - 1].Type == ECurrencyType.Gold) RewardInfoText.text = "°ñµå";
@@ -45,12 +45,17 @@ public class UI_AttendanceSlot : MonoBehaviour
         else if (attendance.Entries[_day].IsChecked)
         {
             AttendanceInfoText.text = "È¹µæ °¡´É";
-            RewardButton.interactable = false;
+            RewardButton.interactable = true;
         }
         else
         {
             AttendanceInfoText.text = $"{_day}ÀÏÂ÷";
-            RewardButton.interactable = true;
+            RewardButton.interactable = false;
         }
+    }
+
+    public void OnClickClaimRewardButton()
+    {
+        AttendanceManager.Instance.TryClaimReward(_day);
     }
 }
