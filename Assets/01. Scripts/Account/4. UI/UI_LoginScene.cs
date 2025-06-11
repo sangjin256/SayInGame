@@ -126,20 +126,20 @@ public class UI_LoginScene : MonoBehaviour
 
         // 2. 비밀번호 입력을 확인한다.
         string pwd = LoginInputFields.PasswordInputField.text;
-        if (string.IsNullOrEmpty(pwd))
-        {
-            LoginInputFields.ResultText.text = "아이디와 비밀번호를 확인해주세요.";
-            LoginInputFields.ResultText.transform.DOShakePosition(0.5f, 15);
-            return;
-        }
+        //if (string.IsNullOrEmpty(pwd))
+        //{
+        //    LoginInputFields.ResultText.text = "아이디와 비밀번호를 확인해주세요.";
+        //    LoginInputFields.ResultText.transform.DOShakePosition(0.5f, 15);
+        //    return;
+        //}
 
-        // 3. PlayerPrefs.Get을 이용해서 아이디와 비밀번호가 맞는지 확인한다.
-        if(PlayerPrefs.HasKey(PREFIX + id) == false)
-        {
-            LoginInputFields.ResultText.text = "아이디와 비밀번호를 확인해주세요.";
-            LoginInputFields.ResultText.transform.DOShakePosition(0.5f, 15);
-            return;
-        }
+        //// 3. PlayerPrefs.Get을 이용해서 아이디와 비밀번호가 맞는지 확인한다.
+        //if(PlayerPrefs.HasKey(PREFIX + id) == false)
+        //{
+        //    LoginInputFields.ResultText.text = "아이디와 비밀번호를 확인해주세요.";
+        //    LoginInputFields.ResultText.transform.DOShakePosition(0.5f, 15);
+        //    return;
+        //}
 
         if(AccountManager.Instance.TryLogin(id, pwd))
         {
@@ -161,6 +161,6 @@ public class UI_LoginScene : MonoBehaviour
         string id = LoginInputFields.IDInputField.text;
         string password = LoginInputFields.PasswordInputField.text;
 
-        LoginInputFields.ConfirmButton.enabled = !string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(password);
+        //LoginInputFields.ConfirmButton.enabled = !string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(password);
     }
 }

@@ -14,6 +14,7 @@ public class AccountManager : BehaviourSingleton<AccountManager>
     private void Awake()
     {
         Init();
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Init()

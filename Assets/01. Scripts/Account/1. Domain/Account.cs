@@ -36,12 +36,6 @@ public class Account
             throw new Exception(nicknameSpecification.ErrorMessage);
         }
 
-        var passwordSpecification = new AccountPasswordSpecification();
-        if (!passwordSpecification.IsSatisfiedBy(password))
-        {
-            throw new Exception(passwordSpecification.ErrorMessage);
-        }
-
         return true;
     }
 

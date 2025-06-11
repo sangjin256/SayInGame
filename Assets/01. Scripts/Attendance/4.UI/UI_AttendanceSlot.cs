@@ -11,12 +11,12 @@ public class UI_AttendanceSlot : MonoBehaviour
 
     public void Init(int day, AttendanceCalendarDTO dto, AttendanceSO so)
     {
-        if (dto.Entries[day - 1].IsRewardClaimed)
+        if (dto.Entries[day].IsRewardClaimed)
         {
             AttendanceInfoText.text = "È¹µæ ¿Ï·á";
             RewardButton.interactable = false;
         }
-        else if (dto.Entries[day - 1].IsChecked)
+        else if (dto.Entries[day].IsChecked)
         {
             AttendanceInfoText.text = "È¹µæ °¡´É";
             RewardButton.interactable = false;
