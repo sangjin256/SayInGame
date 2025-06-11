@@ -52,4 +52,17 @@ public class AttendanceManager : BehaviourSingleton<AttendanceManager>
 
         OnDataLoaded?.Invoke();
     }
+
+    public bool TryClaimReward(int day)
+    {
+        if (_attendanceCalendar.TryClaimReward(day))
+        {
+            AttendanceInfo attendanceInfo = currentData.Attendances[day - 1];
+            CurrencyManager.Instance.Add(attendanceInfo.Type, attendanceInfo.Value);
+            OnDataChanged?.Invoke();
+            return true;
+        }
+
+        return false;
+    }
 }
