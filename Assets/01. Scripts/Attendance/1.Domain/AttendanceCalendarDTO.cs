@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class AttendanceCalendarDTO
 {
     public readonly string Email;
-    public readonly DateTime LastAttendanceDate;
+    public readonly string LastAttendanceDate;
     public readonly int AccumulatedAttendanceDay;
     public readonly Dictionary<int, DailyAttendanceEntryDTO> Entries;
     
