@@ -25,7 +25,7 @@ public class CurrencyManager : BehaviourSingleton<CurrencyManager>
     {
         _repository = new CurrencyRepository();
 
-        List<CurrencyDTO> loadedCurrencyList = _repository.Load();
+        List<CurrencyDTO> loadedCurrencyList = _repository.Load(AccountManager.Instance.CurrencAccount.Email);
         _currenyDic = new();
         if(loadedCurrencyList == null)
         {
@@ -69,7 +69,7 @@ public class CurrencyManager : BehaviourSingleton<CurrencyManager>
         achieveEvent.value = value;
         EventManager.Broadcast(achieveEvent);
 
-        _repository.Save(ToDTOList());
+        _repository.Save(ToDTOList(), AccountManager.Instance.CurrencAccount.Email);
         OnDataChanged?.Invoke();
     }
 
@@ -80,7 +80,7 @@ public class CurrencyManager : BehaviourSingleton<CurrencyManager>
             return false;
         }
 
-        _repository.Save(ToDTOList());
+        _repository.Save(ToDTOList(), AccountManager.Instance.CurrencAccount.Email);
         OnDataChanged?.Invoke();
         return true;
     }
