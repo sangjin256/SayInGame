@@ -20,4 +20,40 @@ public class AttendanceCalendarDTO
             Entries.Add(entry.Key, new DailyAttendanceEntryDTO(entry.Value));
         }
     }
+    
+    public AttendanceCalendarDTO(AttendanceCalendarSaveData saveData)
+    {
+        Email = saveData.Email;
+        LastAttendanceDate = saveData.LastAttendanceDate;
+        AccumulatedAttendanceDay = saveData.AccumulatedAttendanceDay;
+        Entries = new Dictionary<int, DailyAttendanceEntryDTO>();
+
+        foreach (var item in saveData.DailyAttendanceEntries.DataList)
+        {
+            Entries[item.Day] = new DailyAttendanceEntryDTO(item.IsChecked, item.IsRewardClaimed);
+        }
+    }
+
+    public AttendanceCalendarSaveData ToSaveData()
+    {
+        var saveData = new AttendanceCalendarSaveData
+        {
+            Email = Email,
+            LastAttendanceDate = LastAttendanceDate,
+            AccumulatedAttendanceDay = AccumulatedAttendanceDay,
+            DailyAttendanceEntries = new SaveDatas<DailyAttendanceEntrySaveData>()
+        };
+
+        foreach (var kvp in Entries)
+        {
+            saveData.DailyAttendanceEntries.DataList.Add(new DailyAttendanceEntrySaveData
+            {
+                Day = kvp.Key,
+                IsChecked = kvp.Value.IsChecked,
+                IsRewardClaimed = kvp.Value.IsRewardClaimed
+            });
+        }
+
+        return saveData;
+    }
 }
