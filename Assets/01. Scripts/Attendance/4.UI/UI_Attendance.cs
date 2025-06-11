@@ -31,17 +31,19 @@ public class UI_Attendance : MonoBehaviour
             slot.Init(so.Attendances[i].Day, attendance, so);
             _attendacneSlots.Add(slot);
         }
+
+        AccumulateAttendanceText.text = $"현재 {attendance.AccumulatedAttendanceDay.ToString()}회 출석";
     }
 
     private void Refresh()
     {
-        //List<AttendanceDTO> attendances = AttendanceManager.Instance.Attendances;
+        AttendanceCalendarDTO attendance = AttendanceManager.Instance.Attendance;
 
-        //for (int i = 0; i < attendances.Count; i++)
-        //{
-        //    _slots[i].Refresh(attendances[i]);
-        //}
+        for (int i = 0; i < attendance.Entries.Count; i++)
+        {
+            _attendacneSlots[i].Refresh(attendance);
+        }
 
-        // AccumulateAttendanceText.text = 
+        AccumulateAttendanceText.text = $"현재 {attendance.AccumulatedAttendanceDay.ToString()}회 출석";
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class UI_AttendanceSlot : MonoBehaviour
 {
+    private int _day;
     public TextMeshProUGUI AttendanceInfoText;
     public TextMeshProUGUI RewardInfoText;
     public TextMeshProUGUI RewardAmountText;
@@ -11,6 +12,7 @@ public class UI_AttendanceSlot : MonoBehaviour
 
     public void Init(int day, AttendanceCalendarDTO dto, AttendanceSO so)
     {
+        _day = day;
         if (dto.Entries[day].IsRewardClaimed)
         {
             AttendanceInfoText.text = "È¹µæ ¿Ï·á";
@@ -35,6 +37,20 @@ public class UI_AttendanceSlot : MonoBehaviour
 
     public void Refresh(AttendanceCalendarDTO attendance)
     {
-        //AttendanceInfoText.text = // ÀÏÀÚ or È¹µæ ¿Ï·á or È¹µæ °¡´É
+        if (attendance.Entries[_day].IsRewardClaimed)
+        {
+            AttendanceInfoText.text = "È¹µæ ¿Ï·á";
+            RewardButton.interactable = false;
+        }
+        else if (attendance.Entries[_day].IsChecked)
+        {
+            AttendanceInfoText.text = "È¹µæ °¡´É";
+            RewardButton.interactable = false;
+        }
+        else
+        {
+            AttendanceInfoText.text = $"{_day}ÀÏÂ÷";
+            RewardButton.interactable = true;
+        }
     }
 }
