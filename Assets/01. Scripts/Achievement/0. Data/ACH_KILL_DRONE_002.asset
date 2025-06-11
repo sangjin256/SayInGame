@@ -16,6 +16,6 @@ MonoBehaviour:
   _name: "\uB4DC\uB860 \uD559\uC0B4\uC790"
   _description: "\uB4DC\uB860 \uD0C0\uC785 \uBAAC\uC2A4\uD130 50\uB9C8\uB9AC \uCC98\uCE58"
   _condition: 1
-  _goalValue: 100
+  _goalValue: 50
   _rewardCurrencyType: 1
   _rewardAmount: 2
