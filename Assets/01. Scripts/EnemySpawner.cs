@@ -23,6 +23,9 @@ public class EnemySpawner : MonoBehaviour
         _elapsedTime += Time.deltaTime;
         if(_elapsedTime >= StageManager.Instance.GetEnemySpawnFrequency())
         {
+            //
+            Debug.Log($"스폰 카운트: {StageManager.Instance.GetStageLevel()} {StageManager.Instance.GetEnemySpawnFrequency()} {StageManager.Instance.GetEnemySpawnCountMultiplier()} {StageManager.Instance.GetHealthMultiplier()} {StageManager.Instance.GetEliteSpawnRate()}");
+
             Vector3 spawnPoint = SpawnPointList[Random.Range(0, SpawnPointList.Count)].position;
 
             // 엘리트 스폰 확률
