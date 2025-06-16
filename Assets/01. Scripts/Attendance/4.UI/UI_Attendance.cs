@@ -34,6 +34,11 @@ public class UI_Attendance : MonoBehaviour
         AccumulateAttendanceText.text = $"현재 {attendance.AccumulatedAttendanceDay.ToString()}회 출석";
     }
 
+    public void OnClickClaimAll()
+    {
+
+    }
+
     private void Refresh()
     {
         AttendanceCalendarDTO attendance = AttendanceManager.Instance.Attendance;
