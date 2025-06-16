@@ -40,16 +40,23 @@ public class AttendanceManager : BehaviourSingleton<AttendanceManager>
             throw new Exception("�α��� �����Ͱ� �����ϴ�.");
         }
 
+        List<int> accumulateDays = currentData.AccumulateAttendances?.Select(x => x.Day).ToList();
+        if(accumulateDays == null)
+        {
+            throw new Exception("누적 출석 데이터가 없습니다.");
+        }
+
         _repository = new AttendanceCalendarRepository();
         AttendanceCalendarDTO loadedData = _repository.Load(email);
         if (loadedData == null)
         {
-            _attendanceCalendar = new AttendanceCalendar(email, currentData.Attendances.Count);
+            _attendanceCalendar = new AttendanceCalendar(email, currentData.Attendances.Count, accumulateDays);
         }
         else
         {
-            Dictionary<int, DailyAttendanceEntry> entries = loadedData.Entries.ToDictionary(x => x.Key, x => new DailyAttendanceEntry(x.Value.IsChecked, x.Value.IsRewardClaimed));
-            _attendanceCalendar = new AttendanceCalendar(email, loadedData.LastAttendanceDate, loadedData.AccumulatedAttendanceDay, entries);
+            Dictionary<int, AttendanceEntry> entries = loadedData.Entries.ToDictionary(x => x.Key, x => new AttendanceEntry(x.Value.IsChecked, x.Value.IsRewardClaimed));
+            Dictionary<int, AttendanceEntry> accumulateEntries = loadedData.AccumulateEntries.ToDictionary(x => x.Key, x => new AttendanceEntry(x.Value.IsChecked, x.Value.IsRewardClaimed));
+            _attendanceCalendar = new AttendanceCalendar(email, loadedData.LastAttendanceDate, loadedData.AccumulatedAttendanceDay, entries, accumulateEntries);
         }
 
         OnDataLoaded?.Invoke();

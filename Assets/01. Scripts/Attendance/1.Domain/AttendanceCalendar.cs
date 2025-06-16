@@ -12,27 +12,38 @@ public class AttendanceCalendar
     private int _accumulatedAttendanceDay;
     public int AccumulatedAttendanceDay => _accumulatedAttendanceDay;
     
-    private Dictionary<int, DailyAttendanceEntry> _entries;
-    public IReadOnlyDictionary<int, DailyAttendanceEntry> Entries => _entries;
+    private Dictionary<int, AttendanceEntry> _entries;
+    public IReadOnlyDictionary<int, AttendanceEntry> Entries => _entries;
 
-    public AttendanceCalendar(string email, int maximumAttendanceDay)
+    private Dictionary<int, AttendanceEntry> _accumulateEntries;
+    public IReadOnlyDictionary<int, AttendanceEntry> AccumulateEntries => _accumulateEntries;
+
+
+
+    public AttendanceCalendar(string email, int maximumAttendanceDay, List<int> AccumulateDays)
     {
         Email = email;
         _lastAttendanceDate = DateTime.MinValue.Date.ToString();
         _accumulatedAttendanceDay = 0;
-        _entries = new Dictionary<int, DailyAttendanceEntry>();
+        _entries = new Dictionary<int, AttendanceEntry>();
         for (int i = 1; i <= maximumAttendanceDay; i++)
         {
-            _entries.Add(i, new DailyAttendanceEntry());
+            _entries.Add(i, new AttendanceEntry());
+        }
+
+        for(int i = 0; i < AccumulateDays.Count; i++)
+        {
+            _accumulateEntries.Add(AccumulateDays[i], new AttendanceEntry());
         }
     }
 
-    public AttendanceCalendar(string email, string lastAttendanceDate, int accumulatedAttendanceDay, Dictionary<int, DailyAttendanceEntry> entries)
+    public AttendanceCalendar(string email, string lastAttendanceDate, int accumulatedAttendanceDay, Dictionary<int, AttendanceEntry> entries, Dictionary<int, AttendanceEntry> accumulateEntries)
     {
         Email = email;
         _lastAttendanceDate = lastAttendanceDate;
         _accumulatedAttendanceDay = accumulatedAttendanceDay;
         _entries = entries;
+        _accumulateEntries = accumulateEntries;
     }
     
     public bool TryAttendance(DateTime current)

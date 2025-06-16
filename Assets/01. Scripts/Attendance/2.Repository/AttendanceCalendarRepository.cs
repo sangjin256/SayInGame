@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class DailyAttendanceEntrySaveData
+public class AttendanceEntrySaveData
 {
     public int Day;
     public bool IsChecked;
@@ -16,11 +16,13 @@ public class AttendanceCalendarSaveData
     public string Email;
     public string LastAttendanceDate;
     public int AccumulatedAttendanceDay;
-    public SaveDatas<DailyAttendanceEntrySaveData> DailyAttendanceEntries;
+    public SaveDatas<AttendanceEntrySaveData> DailyAttendanceEntries;
+    public SaveDatas<AttendanceEntrySaveData> AccumulateAttendanceEntries;
     
     public AttendanceCalendarSaveData()
     {
-        DailyAttendanceEntries = new SaveDatas<DailyAttendanceEntrySaveData>();
+        DailyAttendanceEntries = new SaveDatas<AttendanceEntrySaveData>();
+        AccumulateAttendanceEntries = new SaveDatas<AttendanceEntrySaveData>();
     }
 }
 

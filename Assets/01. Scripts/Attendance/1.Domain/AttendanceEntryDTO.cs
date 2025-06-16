@@ -1,29 +1,29 @@
-public class DailyAttendanceEntryDTO
+public class AttendanceEntryDTO
 {
     public readonly bool IsChecked;
     public readonly bool IsRewardClaimed;
 
-    public DailyAttendanceEntryDTO(bool isChecked = false, bool isRewardClaimed = false)
+    public AttendanceEntryDTO(bool isChecked = false, bool isRewardClaimed = false)
     {
         IsChecked = isChecked;
         IsRewardClaimed = isRewardClaimed;
     }
     
-    public DailyAttendanceEntryDTO(DailyAttendanceEntry entry)
+    public AttendanceEntryDTO(AttendanceEntry entry)
     {
         IsChecked = entry.IsChecked;
         IsRewardClaimed = entry.IsRewardClaimed;
     }
     
-    public DailyAttendanceEntryDTO(DailyAttendanceEntrySaveData saveData)
+    public AttendanceEntryDTO(AttendanceEntrySaveData saveData)
     {
         IsChecked = saveData.IsChecked;
         IsRewardClaimed = saveData.IsRewardClaimed;
     }
 
-    public DailyAttendanceEntrySaveData ToSaveData()
+    public AttendanceEntrySaveData ToSaveData()
     {
-        return new DailyAttendanceEntrySaveData
+        return new AttendanceEntrySaveData
         {
             IsChecked = this.IsChecked,
             IsRewardClaimed = this.IsRewardClaimed

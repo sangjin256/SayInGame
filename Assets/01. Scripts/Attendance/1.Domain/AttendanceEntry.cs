@@ -1,17 +1,17 @@
 using System;
 
-public class DailyAttendanceEntry
+public class AttendanceEntry
 {
     public bool IsChecked { get; private set; }
     public bool IsRewardClaimed { get; private set; }
 
-    public DailyAttendanceEntry()
+    public AttendanceEntry()
     {
         IsChecked = false;
         IsRewardClaimed = false;
     }
     
-    public DailyAttendanceEntry(bool isChecked, bool isRewardClaimed)
+    public AttendanceEntry(bool isChecked, bool isRewardClaimed)
     {
         IsChecked = isChecked;
         IsRewardClaimed = isRewardClaimed;
