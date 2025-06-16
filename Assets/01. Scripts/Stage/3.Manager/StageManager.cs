@@ -3,37 +3,32 @@ using UnityEngine;
 
 public class StageManager : BehaviourSingleton<StageManager>
 {
-    [SerializeField]
-    private List<DifficultySO> _difficultySOList;
-    private List<Difficulty> _difficultyList;
-
     private Stage _stage;
     private bool isDataLoaded = false;
 
     private void Awake()
     {
         Global.Instance.OnDataLoaded += OnLoadDataFunc;
-        Init();
-    }
-
-    private void Start()
-    {
-        
     }
 
     private void Init()
     {
-        // TODO: 로드된 데이터를 기반으로 만들어야 할듯?
-        _stage = new Stage(1, 1, 1, 1);
+        // 기본값 설정: 스테이지 1, 난이도 1, 기본 소환 주기 1초, 기본 소환 밀도 1
+        _stage = new Stage(1, 1f, 1f);
     }
+
+
 
     private void OnLoadDataFunc()
     {
         var timeDataList = DataTable.Instance.GetTimeDataList();
+        
+        Init();
+
 
         foreach(TimeData timeData in timeDataList)
         {
-            _stage.AddDifficultyList(new Difficulty(timeData.TID, timeData.Time,
+            _stage.AddDifficultyList(new Difficulty(timeData.TID, timeData.NextTime,
              timeData.DifficultyNum, timeData.DifficultyText,
                 timeData.EnemyCountMultiplier, timeData.EnemyHealthMultiplier,
                  timeData.EnemyDamageMultiplier, timeData.EliteSpawnRate, timeData.EnemySpawnFrequency));
@@ -44,27 +39,55 @@ public class StageManager : BehaviourSingleton<StageManager>
         Debug.Log("난이도 리스트 초기화 완료");
     }
 
-    private void UpdateStage()
+    public float GetEnemySpawnFrequency()
     {
-        _stage.IncreaseDifficulty();
+        int difficultyLevel = GetStageLevel();   
+
+        return _stage.GetEnemySpawnFrequency(difficultyLevel);
+    }
+
+    public float GetEnemySpawnCountMultiplier()
+    {
+        int difficultyLevel = GetStageLevel(); 
+
+        return _stage.GetEnemySpawnCountMultiplier(difficultyLevel);
+    }
+
+    public float GetHealthMultiplier()
+    {
+        int difficultyLevel = GetStageLevel(); 
+        
+        return _stage.GetHealthMultiplier(difficultyLevel);
+    }
+
+    public float GetDamageMultiplier()
+    {
+        int difficultyLevel = GetStageLevel(); 
+
+        return _stage.GetDamageMultiplier(difficultyLevel);
+    }
+
+    public float GetEliteSpawnRate()
+    {
+        int difficultyLevel = GetStageLevel(); 
+
+        return _stage.GetEliteSpawnRate(difficultyLevel);
     }
 
     public int GetStageLevel()
     {
-        return _stage.CurrentDifficultyLevel;
-    }
+        float currentTime = TimeManager.Instance.TimeDTO.CurrentTime;
 
-    public float GetBaseEnemySpawnFrequency()
-    {
-        return _stage.MultiplyBaseEnemySpawnFrequency();
-    }
+        int currentLevel = 1;
 
-    public float GetBaseEnemySpawnDensity()
-    {
-        return _stage.MultiplyBaseEnemySpawnDensity();
-    }
+        foreach(Difficulty difficulty in _stage.DifficultyList)
+        {
+            if(currentTime > difficulty.DifficultyStartTime)
+            {
+                currentLevel = difficulty.DifficultyLevel+1;
+            }
+        }
 
-    public void GetAvailableMonsterTypes()
-    {
+        return currentLevel;
     }
 }

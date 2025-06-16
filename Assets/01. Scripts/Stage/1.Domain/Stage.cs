@@ -38,6 +38,7 @@ public class Stage
         _currentDifficultyLevel = currentDifficultyLevel;
         _baseEnemySpawnFrequency = baseEnemySpawnFrequency;
         _baseEnemySpawnDensity = baseEnemySpawnDensity;
+        _difficultyList = new List<Difficulty>();
      }
 
      public DifficultyDTO GetDifficulty(int difficultyLevel)
