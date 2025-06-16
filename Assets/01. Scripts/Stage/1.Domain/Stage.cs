@@ -5,110 +5,59 @@ using System;
 public class Stage
 {
     private readonly int _stageID;                                           // 스테이지 고유 ID
-    private float _baseEnemySpawnFrequency;                        // 기본 적 소환 주기
-    public float BaseEnemySpawnFrequency => _baseEnemySpawnFrequency;
-    private float _baseEnemySpawnDensity;
-    public float BaseEnemySpawnDensity => _baseEnemySpawnDensity;
+    private int _currentDifficultyLevel;
+
     private List<Difficulty> _difficultyList;
     public List<Difficulty> DifficultyList => _difficultyList;
 
-    public Stage(int stageID, float baseEnemySpawnFrequency, float baseEnemySpawnDensity)
+    public Stage(int stageID, int currentDifficultyLevel)
     {
-    if(stageID <= 0)
-    {
-        throw new Exception("스테이지 ID는 0보다 커야 합니다.");
-    }
-    if(baseEnemySpawnFrequency <= 0)
-    {
-        throw new Exception("적 소환 주기는 0보다 커야 합니다.");
-    }
-    if(baseEnemySpawnDensity <= 0)
-    {
-        throw new Exception("적 소환 밀도는 0보다 커야 합니다.");
-    }
+        if(stageID <= 0)
+        {
+            throw new Exception("스테이지 ID는 0보다 커야 합니다.");
+        }
+        if(currentDifficultyLevel <= 0)
+        {
+            throw new Exception("난이도는 0보다 커야 합니다.");
+        }
 
-    _stageID = stageID;
-    _baseEnemySpawnFrequency = baseEnemySpawnFrequency;
-    _baseEnemySpawnDensity = baseEnemySpawnDensity;
-    _difficultyList = new List<Difficulty>();
+        _stageID = stageID;
+        _difficultyList = new List<Difficulty>();
+        _currentDifficultyLevel = currentDifficultyLevel;
     }
 
-     public DifficultyDTO GetDifficulty(int difficultyLevel)
+     public DifficultyDTO GetDifficulty()
      {
-        if(difficultyLevel <= 0)
-        {
-            throw new Exception("난이도는 0보다 커야 합니다.");
-        }
-        if(difficultyLevel > _difficultyList.Count)
-        {
-            throw new Exception("난이도는 난이도 리스트의 범위를 벗어납니다.");
-        }
-
-        return _difficultyList[difficultyLevel - 1].ToDTO();
+        return _difficultyList[_currentDifficultyLevel - 1].ToDTO();
      }
 
-     public float GetEnemySpawnFrequency(int difficultyLevel)
+     public void IncreaseCurrentDifficultyLevel()
      {
-        if(difficultyLevel <= 0)
-        {
-            throw new Exception("난이도는 0보다 커야 합니다.");
-        }
-        if(difficultyLevel > _difficultyList.Count)
-        {
-            throw new Exception("난이도는 난이도 리스트의 범위를 벗어납니다.");
-        }
-        return _baseEnemySpawnFrequency * _difficultyList[difficultyLevel - 1].EnemySpawnFrequency;
+        _currentDifficultyLevel++;
      }
 
-     public float GetEnemySpawnCountMultiplier(int difficultyLevel)
+     public float GetEnemySpawnFrequency()
      {
-        if(difficultyLevel <= 0)
-        {
-            throw new Exception("난이도는 0보다 커야 합니다.");
-        }
-        if(difficultyLevel > _difficultyList.Count)
-        {
-            throw new Exception("난이도는 난이도 리스트의 범위를 벗어납니다.");
-        }
-        return _baseEnemySpawnDensity * _difficultyList[difficultyLevel - 1].EnemyCountMultiplier;
+        return _difficultyList[_currentDifficultyLevel - 1].EnemySpawnFrequency;
      }
 
-     public float GetHealthMultiplier(int difficultyLevel)
+     public float GetEnemySpawnCountMultiplier()
      {
-        if(difficultyLevel <= 0)
-        {
-            throw new Exception("난이도는 0보다 커야 합니다.");
-        }
-        if(difficultyLevel > _difficultyList.Count)
-        {
-            throw new Exception("난이도는 난이도 리스트의 범위를 벗어납니다.");
-        }
-        return _difficultyList[difficultyLevel - 1].EnemyHealthMultiplier;
-     }
-     public float GetDamageMultiplier(int difficultyLevel)
-     {
-        if(difficultyLevel <= 0)
-        {
-            throw new Exception("난이도는 0보다 커야 합니다.");
-        }
-        if(difficultyLevel > _difficultyList.Count)
-        {
-            throw new Exception("난이도는 난이도 리스트의 범위를 벗어납니다.");
-        }
-        return _difficultyList[difficultyLevel - 1].EnemyDamageMultiplier;
+        return _difficultyList[_currentDifficultyLevel - 1].EnemyCountMultiplier;
      }
 
-     public float GetEliteSpawnRate(int difficultyLevel)
+     public float GetHealthMultiplier()
      {
-        if(difficultyLevel <= 0)
-        {
-            throw new Exception("난이도는 0보다 커야 합니다.");
-        }
-        if(difficultyLevel > _difficultyList.Count)
-        {
-            throw new Exception("난이도는 난이도 리스트의 범위를 벗어납니다.");
-        }
-        return _difficultyList[difficultyLevel - 1].EliteSpawnRate;
+        return _difficultyList[_currentDifficultyLevel - 1].EnemyHealthMultiplier;
+     }
+     public float GetDamageMultiplier()
+     {
+        return _difficultyList[_currentDifficultyLevel - 1].EnemyDamageMultiplier;
+     }
+
+     public float GetEliteSpawnRate()
+     {
+        return _difficultyList[_currentDifficultyLevel - 1].EliteSpawnRate;
      }
 
     // 난이도 리스트에 추가
