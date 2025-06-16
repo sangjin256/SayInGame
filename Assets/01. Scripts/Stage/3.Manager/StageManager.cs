@@ -18,7 +18,7 @@ public class StageManager : BehaviourSingleton<StageManager>
 
     private void Init()
     {
-        _stage = new Stage(1, GetStageLevel());
+        _stage = new Stage(1, 1);
     }
 
 
@@ -37,6 +37,8 @@ public class StageManager : BehaviourSingleton<StageManager>
                 timeData.EnemyCountMultiplier, timeData.EnemyHealthMultiplier,
                  timeData.EnemyDamageMultiplier, timeData.EliteSpawnRate, timeData.EnemySpawnFrequency));
         }
+
+        _stage.SetCurrentDifficultyLevel(GetStageLevel());
 
         IsDataLoaded = true;
         

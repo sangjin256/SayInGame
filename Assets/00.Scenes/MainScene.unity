@@ -4256,6 +4256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b88a8f083509134490e4ba8d11696f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsDataLoaded: 0
 --- !u!4 &1059644914 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5382970231489497029, guid: ff2889050d7d4414f98bf7a5cb0e54d7,
@@ -5342,7 +5343,8 @@ MonoBehaviour:
   Radius: 2
   MaxSpawnCount: 10
   _SpawnCount: 0
-  _eliteEnemyPrefab: {fileID: 0}
+  _eliteEnemyPrefab: {fileID: 2015434656898269652, guid: e29d43f43cc5d82499dd9926e01847d3,
+    type: 3}
 --- !u!4 &1416785242
 Transform:
   m_ObjectHideFlags: 0

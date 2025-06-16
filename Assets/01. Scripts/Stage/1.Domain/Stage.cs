@@ -31,6 +31,14 @@ public class Stage
         return _difficultyList[_currentDifficultyLevel - 1].ToDTO();
      }
 
+     public void SetCurrentDifficultyLevel(int difficultyLevel)
+     {
+        if(difficultyLevel <= 0)
+        {
+            throw new Exception("난이도는 0보다 커야 합니다.");
+        }
+     }
+
      public void IncreaseCurrentDifficultyLevel()
      {
         if(_currentDifficultyLevel >= _difficultyList.Count)
