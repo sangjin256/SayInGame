@@ -15,10 +15,10 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private int _SpawnCount = 0;
     [SerializeField] private GameObject _eliteEnemyPrefab;
 
-
-
     private void Update()
     {
+        if(!StageManager.Instance.IsDataLoaded) return;
+
         if (_SpawnCount >= MaxSpawnCount) return;
         _elapsedTime += Time.deltaTime;
         if(_elapsedTime >= StageManager.Instance.GetEnemySpawnFrequency())
@@ -41,9 +41,6 @@ public class EnemySpawner : MonoBehaviour
             enemyHealth.MaxHealth = enemyHealth.BaseMaxHealth * StageManager.Instance.GetHealthMultiplier();
             //데미지
             // 프로젝타일 마다 데미지가 있음
-
-
-
 
             enemyHealth.OnDie += OnDie;
             _elapsedTime = 0f;

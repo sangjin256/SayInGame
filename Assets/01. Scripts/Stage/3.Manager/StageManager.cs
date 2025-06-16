@@ -4,7 +4,7 @@ using UnityEngine;
 public class StageManager : BehaviourSingleton<StageManager>
 {
     private Stage _stage;
-    private bool isDataLoaded = false;
+    public bool IsDataLoaded = false;
 
     private void Awake()
     {
@@ -38,7 +38,7 @@ public class StageManager : BehaviourSingleton<StageManager>
                  timeData.EnemyDamageMultiplier, timeData.EliteSpawnRate, timeData.EnemySpawnFrequency));
         }
 
-        isDataLoaded = true;
+        IsDataLoaded = true;
         
         Debug.Log("난이도 리스트 초기화 완료");
     }
