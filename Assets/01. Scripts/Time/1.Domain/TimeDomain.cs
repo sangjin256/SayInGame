@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class TimeDomain
 {
@@ -9,12 +10,22 @@ public class TimeDomain
 
     public TimeDomain(float nextDifficultyChangeTime)
     {
+        if(nextDifficultyChangeTime <= 0)
+        {
+            throw new Exception("다음 난이도 시간은 0 이하일 수 없습니다.");
+        }
+
         _currentTime = 0f;
         _nextDifficultyChangeTime = nextDifficultyChangeTime;
     }
 
     public TimeDomain(float currentTime, float nextDifficultyChangeTime)
     {
+        if (nextDifficultyChangeTime <= 0)
+        {
+            throw new Exception("다음 난이도 시간은 0 이하일 수 없습니다.");
+        }
+
         _currentTime = currentTime;
         _nextDifficultyChangeTime = nextDifficultyChangeTime;
     }

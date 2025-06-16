@@ -6,9 +6,12 @@ public class TimeManager : BehaviourSingleton<TimeManager>
 {
     private TimeDomain _time;
     private TimeRepository _repository;
+    private float _nextSecondTick = 1f;
+    private bool _isLoaded;
 
     public TimeDomainDTO TimeDTO => new TimeDomainDTO(_time);
     public Action OnDifficultyChanged;
+    public Action OnSeconds;
 
     private void Start()
     {
@@ -28,15 +31,27 @@ public class TimeManager : BehaviourSingleton<TimeManager>
         {
             _time = new TimeDomain(loadedTimeDTO.CurrentTime, loadedTimeDTO.NextDifficultyChangeTime);
         }
+
+        _isLoaded = true;
     }
 
     public void Update()
     {
-        _time.AddTime(Time.deltaTime);
-
-        if (_time.CheckDifficultyChange())
+        if (_isLoaded)
         {
-            OnDifficultyChanged?.Invoke();
+            _time.AddTime(Time.deltaTime);
+
+            if (_time.CurrentTime >= _nextSecondTick)
+            {
+                OnSeconds?.Invoke();
+                _nextSecondTick = _time.CurrentTime + 1f;
+            }
+
+
+            if (_time.CheckDifficultyChange())
+            {
+                OnDifficultyChanged?.Invoke();
+            }
         }
     }
 }
