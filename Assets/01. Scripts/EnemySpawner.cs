@@ -24,7 +24,7 @@ public class EnemySpawner : MonoBehaviour
         if(_elapsedTime >= StageManager.Instance.GetEnemySpawnFrequency())
         {
             //
-            Debug.Log($"스폰 카운트: {StageManager.Instance.GetStageLevel()} {StageManager.Instance.GetEnemySpawnFrequency()} {StageManager.Instance.GetEnemySpawnCountMultiplier()} {StageManager.Instance.GetHealthMultiplier()} {StageManager.Instance.GetEliteSpawnRate()}");
+            Debug.Log($"스폰 카운트: {StageManager.Instance.GetDifficultyLevel()} {StageManager.Instance.GetEnemySpawnFrequency()} {StageManager.Instance.GetEnemySpawnCountMultiplier()} {StageManager.Instance.GetHealthMultiplier()} {StageManager.Instance.GetEliteSpawnRate()}");
 
             Vector3 spawnPoint = SpawnPointList[Random.Range(0, SpawnPointList.Count)].position;
 
@@ -41,7 +41,7 @@ public class EnemySpawner : MonoBehaviour
             
             // 스테이지에 따라서 조정
             MaxSpawnCount = (int)(MaxSpawnCount * StageManager.Instance.GetEnemySpawnCountMultiplier());
-            enemyHealth.MaxHealth = enemyHealth.BaseMaxHealth * StageManager.Instance.GetHealthMultiplier();
+            enemyHealth.MaxHealth = enemyHealth.MaxHealth * StageManager.Instance.GetHealthMultiplier();
             //데미지
             // 프로젝타일 마다 데미지가 있음
 

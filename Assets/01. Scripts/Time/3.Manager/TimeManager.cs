@@ -47,15 +47,9 @@ public class TimeManager : BehaviourSingleton<TimeManager>
                 _nextSecondTick = _time.CurrentTime + 1f;
             }
 
-
-            if (_time.CheckDifficultyChange())
+            if (_time.TryDifficultyChange(StageManager.Instance.GetNextDifficultyTime()))
             {
                 OnDifficultyChanged?.Invoke();
-            }
-
-            if(Input.GetKeyDown(KeyCode.K))
-            {
-                _time.AddTime(59f);
             }
         }
     }

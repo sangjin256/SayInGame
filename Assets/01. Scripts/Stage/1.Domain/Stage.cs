@@ -72,6 +72,11 @@ public class Stage
         return _difficultyList[_currentDifficultyLevel - 1].EliteSpawnRate;
      }
 
+    public float GetNextDifficultyTime()
+    {
+        return _difficultyList[_currentDifficultyLevel - 1].NextDifficultyStartTime;
+    }
+
     // 난이도 리스트에 추가
      public void AddDifficultyList(Difficulty difficulty)
      {

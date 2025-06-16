@@ -40,9 +40,13 @@ public class TimeDomain
         _currentTime += time;
     }
 
-    public bool CheckDifficultyChange()
+    public bool TryDifficultyChange(float nextDifficultyTime)
     {
-        if (_currentTime > _nextDifficultyChangeTime) return true;
+        if (_currentTime > _nextDifficultyChangeTime)
+        {
+            _nextDifficultyChangeTime = nextDifficultyTime;
+            return true;
+        }
         return false;
     }
 }

@@ -38,7 +38,7 @@ public class StageManager : BehaviourSingleton<StageManager>
                  timeData.EnemyDamageMultiplier, timeData.EliteSpawnRate, timeData.EnemySpawnFrequency));
         }
 
-        _stage.SetCurrentDifficultyLevel(GetStageLevel());
+        _stage.SetCurrentDifficultyLevel(GetDifficultyLevel());
 
         IsDataLoaded = true;
         
@@ -75,7 +75,12 @@ public class StageManager : BehaviourSingleton<StageManager>
         return _stage.GetEliteSpawnRate();
     }
 
-    public int GetStageLevel()
+    public float GetNextDifficultyTime()
+    {
+        return _stage.GetNextDifficultyTime();
+    }
+
+    public int GetDifficultyLevel()
     {
         float currentTime = TimeManager.Instance.TimeDTO.CurrentTime;
 
@@ -83,7 +88,7 @@ public class StageManager : BehaviourSingleton<StageManager>
 
         foreach(Difficulty difficulty in _stage.DifficultyList)
         {
-            if(currentTime > difficulty.DifficultyStartTime)
+            if(currentTime > difficulty.NextDifficultyStartTime)
             {
                 currentLevel = difficulty.DifficultyLevel+1;
             }
