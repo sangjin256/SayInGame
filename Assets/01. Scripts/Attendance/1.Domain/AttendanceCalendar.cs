@@ -112,6 +112,11 @@ public class AttendanceCalendar
     
     public bool TryClaimReward(int day)
     {
+        if(day <= 0)
+        {
+            throw new Exception("day는 0 이하일 수 없습니다.");
+        }
+
         if (_entries.TryGetValue(day, out var entry))
         {
             return entry.TryClaimReward();
@@ -124,6 +129,11 @@ public class AttendanceCalendar
 
     public bool TryClaimAccumulateReward(int day)
     {
+        if (day <= 0)
+        {
+            throw new Exception("day는 0 이하일 수 없습니다.");
+        }
+
         if (_accumulateEntries.TryGetValue(day, out var entry))
         {
             return entry.TryClaimReward();

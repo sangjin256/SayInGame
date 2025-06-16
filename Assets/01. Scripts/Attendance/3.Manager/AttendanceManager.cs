@@ -9,7 +9,6 @@ public class AttendanceManager : BehaviourSingleton<AttendanceManager>
 {
     private AttendanceCalendar _attendanceCalendar;
     public AttendanceCalendarDTO Attendance => new AttendanceCalendarDTO(_attendanceCalendar);
-    // �������丮 �߰�
     private AttendanceCalendarRepository _repository;
     [SerializeField]
     private List<AttendanceSO> _metaDatas;
@@ -31,13 +30,13 @@ public class AttendanceManager : BehaviourSingleton<AttendanceManager>
         currentData = _metaDatas.Find(x => x.Month == now.Month);
         if(currentData == null)
         {
-            throw new Exception("SO �����Ͱ� �����ϴ�.");
+            throw new Exception("SO 데이터가 없습니다.");
         }
 
         string email = AccountManager.Instance.CurrencAccount?.Email;
         if (email.IsNullOrEmpty())
         {
-            throw new Exception("�α��� �����Ͱ� �����ϴ�.");
+            throw new Exception("이메일은 비어있을 수 없습니다.");
         }
 
         List<int> accumulateDays = currentData.AccumulateAttendances?.Select(x => x.Day).ToList();
