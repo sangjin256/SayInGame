@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using Unity.FPS.Game;
 using Unity.FPS.AI;
+using Unity.VisualScripting;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -9,19 +10,41 @@ public class EnemySpawner : MonoBehaviour
     public GameObject EnemyPrefab;
 
     public float Radius = 1f;
-    public float Timer = 3f;
     public int MaxSpawnCount = 10;
     private float _elapsedTime = 0f;
     [SerializeField] private int _SpawnCount = 0;
+    [SerializeField] private GameObject _eliteEnemyPrefab;
+
+
 
     private void Update()
     {
         if (_SpawnCount >= MaxSpawnCount) return;
         _elapsedTime += Time.deltaTime;
-        if(_elapsedTime >= Timer)
+        if(_elapsedTime >= StageManager.Instance.GetEnemySpawnFrequency())
         {
             Vector3 spawnPoint = SpawnPointList[Random.Range(0, SpawnPointList.Count)].position;
-            Health enemyHealth = Instantiate(EnemyPrefab, RandomClusteredPosition(spawnPoint), Quaternion.identity).GetComponent<Health>();
+
+            // 엘리트 스폰 확률
+            Health enemyHealth = null;
+            if(Random.value < StageManager.Instance.GetEliteSpawnRate())
+            {
+               enemyHealth = Instantiate(_eliteEnemyPrefab, RandomClusteredPosition(spawnPoint), Quaternion.identity).GetComponent<Health>(); 
+            }
+            else
+            {
+                enemyHealth = Instantiate(EnemyPrefab, RandomClusteredPosition(spawnPoint), Quaternion.identity).GetComponent<Health>(); 
+            }
+            
+            // 스테이지에 따라서 조정
+            MaxSpawnCount = (int)(MaxSpawnCount * StageManager.Instance.GetEnemySpawnCountMultiplier());
+            enemyHealth.MaxHealth = enemyHealth.BaseMaxHealth * StageManager.Instance.GetHealthMultiplier();
+            //데미지
+            // 프로젝타일 마다 데미지가 있음
+
+
+
+
             enemyHealth.OnDie += OnDie;
             _elapsedTime = 0f;
             _SpawnCount++;
