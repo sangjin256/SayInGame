@@ -34,6 +34,7 @@ namespace Unity.FPS.UI
         FramerateCounter m_FramerateCounter;
 
         public GameObject UI_Achievement;
+        public GameObject UI_Attendance;
 
         void Start()
         {
@@ -126,6 +127,7 @@ namespace Unity.FPS.UI
                 AudioUtility.SetMasterVolume(1);
 
                 UI_Achievement.SetActive(false);
+                UI_Attendance.SetActive(false);
             }
 
         }
@@ -158,6 +160,11 @@ namespace Unity.FPS.UI
         public void OnAchievementButtonClicked()
         {
             UI_Achievement.SetActive(true);
+        }
+
+        public void OnAttendanceButtonClicked()
+        {
+            UI_Attendance.SetActive(true);
         }
     }
 }

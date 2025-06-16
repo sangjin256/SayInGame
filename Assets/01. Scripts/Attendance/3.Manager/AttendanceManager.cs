@@ -89,4 +89,19 @@ public class AttendanceManager : BehaviourSingleton<AttendanceManager>
 
         return false;
     }
+
+    public bool TryClaimAccumulateReward(int day)
+    {
+        if (_attendanceCalendar.TryClaimAccumulateReward(day))
+        {
+            AttendanceInfo attendanceInfo = currentData.AccumulateAttendances.Find(x => x.Day == day);
+
+            CurrencyManager.Instance.Add(attendanceInfo.Type, attendanceInfo.Value);
+            OnDataChanged?.Invoke();
+            _repository.Save(new AttendanceCalendarDTO(_attendanceCalendar));
+            return true;
+        }
+
+        return false;
+    }
 }

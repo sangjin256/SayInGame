@@ -1,32 +1,55 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class UI_AttendanceSlot : MonoBehaviour
 {
-    private int _day;
+    public int Day;
     public TextMeshProUGUI AttendanceInfoText;
     public TextMeshProUGUI RewardInfoText;
     public TextMeshProUGUI RewardAmountText;
     public Button RewardButton;
 
-    public void Init(int day, AttendanceCalendarDTO dto, AttendanceSO so)
+    public void Init(int day, AttendanceCalendarDTO dto, AttendanceSO so, bool isAccumulate)
     {
-        _day = day;
-        if (dto.Entries[day].IsRewardClaimed)
+        Day = day;
+
+        if(isAccumulate == false)
         {
-            AttendanceInfoText.text = "È¹µæ ¿Ï·á";
-            RewardButton.interactable = false;
-        }
-        else if (dto.Entries[day].IsChecked)
-        {
-            AttendanceInfoText.text = "È¹µæ °¡´É";
-            RewardButton.interactable = true;
+            if (dto.Entries[day].IsRewardClaimed)
+            {
+                AttendanceInfoText.text = "È¹µæ ¿Ï·á";
+                RewardButton.interactable = false;
+            }
+            else if (dto.Entries[day].IsChecked)
+            {
+                AttendanceInfoText.text = "È¹µæ °¡´É";
+                RewardButton.interactable = true;
+            }
+            else
+            {
+                AttendanceInfoText.text = $"{day}ÀÏÂ÷";
+                RewardButton.interactable = false;
+            }
         }
         else
         {
-            AttendanceInfoText.text = $"{day}ÀÏÂ÷";
-            RewardButton.interactable = false;
+            if (dto.AccumulateEntries[day].IsRewardClaimed)
+            {
+                AttendanceInfoText.text = "È¹µæ ¿Ï·á";
+                RewardButton.interactable = false;
+            }
+            else if (dto.AccumulateEntries[day].IsChecked)
+            {
+                AttendanceInfoText.text = "È¹µæ °¡´É";
+                RewardButton.interactable = true;
+            }
+            else
+            {
+                AttendanceInfoText.text = $"{day}È¸ Ãâ¼® º¸»ó";
+                RewardButton.interactable = false;
+            }
         }
 
         if (so.Attendances[day - 1].Type == ECurrencyType.Gold) RewardInfoText.text = "°ñµå";
@@ -35,27 +58,53 @@ public class UI_AttendanceSlot : MonoBehaviour
         RewardAmountText.text = so.Attendances[day - 1].Value.ToString();
     }
 
-    public void Refresh(AttendanceCalendarDTO attendance)
+    public void Refresh(AttendanceCalendarDTO attendance, bool isAccumulate)
     {
-        if (attendance.Entries[_day].IsRewardClaimed)
+        if(isAccumulate == false)
         {
-            AttendanceInfoText.text = "È¹µæ ¿Ï·á";
-            RewardButton.interactable = false;
-        }
-        else if (attendance.Entries[_day].IsChecked)
-        {
-            AttendanceInfoText.text = "È¹µæ °¡´É";
-            RewardButton.interactable = true;
+            if (attendance.Entries[Day].IsRewardClaimed)
+            {
+                AttendanceInfoText.text = "È¹µæ ¿Ï·á";
+                RewardButton.interactable = false;
+            }
+            else if (attendance.Entries[Day].IsChecked)
+            {
+                AttendanceInfoText.text = "È¹µæ °¡´É";
+                RewardButton.interactable = true;
+            }
+            else
+            {
+                AttendanceInfoText.text = $"{Day}ÀÏÂ÷";
+                RewardButton.interactable = false;
+            }
         }
         else
         {
-            AttendanceInfoText.text = $"{_day}ÀÏÂ÷";
-            RewardButton.interactable = false;
+            if (attendance.AccumulateEntries[Day].IsRewardClaimed)
+            {
+                AttendanceInfoText.text = "È¹µæ ¿Ï·á";
+                RewardButton.interactable = false;
+            }
+            else if (attendance.AccumulateEntries[Day].IsChecked)
+            {
+                AttendanceInfoText.text = "È¹µæ °¡´É";
+                RewardButton.interactable = true;
+            }
+            else
+            {
+                AttendanceInfoText.text = $"{Day}È¸ Ãâ¼® º¸»ó";
+                RewardButton.interactable = false;
+            }
         }
     }
 
     public void OnClickClaimRewardButton()
     {
-        AttendanceManager.Instance.TryClaimReward(_day);
+        AttendanceManager.Instance.TryClaimReward(Day);
+    }
+
+    public void OnClickClaimAccumulateRewardButton()
+    {
+        AttendanceManager.Instance.TryClaimAccumulateReward(Day);
     }
 }

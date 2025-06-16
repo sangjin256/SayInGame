@@ -15,7 +15,9 @@ public class AttendanceCalendarDTO
         LastAttendanceDate = calendar.LastAttendanceDate;
         AccumulatedAttendanceDay = calendar.AccumulatedAttendanceDay;
         Entries = new Dictionary<int, AttendanceEntryDTO>();
-        
+        AccumulateEntries = new Dictionary<int, AttendanceEntryDTO>();
+
+
         foreach (var entry in calendar.Entries)
         {
             Entries.Add(entry.Key, new AttendanceEntryDTO(entry.Value));
@@ -23,7 +25,7 @@ public class AttendanceCalendarDTO
 
         foreach(var entry in calendar.AccumulateEntries)
         {
-            Entries.Add(entry.Key, new AttendanceEntryDTO(entry.Value));
+            AccumulateEntries.Add(entry.Key, new AttendanceEntryDTO(entry.Value));
         }
     }
     
