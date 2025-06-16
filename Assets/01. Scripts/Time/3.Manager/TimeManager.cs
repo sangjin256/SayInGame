@@ -52,6 +52,11 @@ public class TimeManager : BehaviourSingleton<TimeManager>
             {
                 OnDifficultyChanged?.Invoke();
             }
+
+            if(Input.GetKeyDown(KeyCode.K))
+            {
+                _time.AddTime(59f);
+            }
         }
     }
 }

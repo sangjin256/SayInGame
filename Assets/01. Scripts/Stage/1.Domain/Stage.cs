@@ -43,7 +43,7 @@ public class Stage
      {
         if(_currentDifficultyLevel >= _difficultyList.Count)
         {
-            throw new Exception("난이도는 난이도 리스트의 범위를 벗어납니다.");
+            throw new Exception($"난이도는 난이도 리스트의 범위를 벗어납니다. 현재 난이도: {_currentDifficultyLevel} 난이도 리스트 개수: {_difficultyList.Count}");
         }
         _currentDifficultyLevel++;
      }
