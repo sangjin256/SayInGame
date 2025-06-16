@@ -8,8 +8,8 @@ public class TimeData
     ///<summary>TID</summary>
     public readonly int TID;
 
-    ///<summary>현재 시간(초)</summary>
-    public readonly int Time;
+    ///<summary>다음 난이도 시간(초)</summary>
+    public readonly int NextTime;
 
     ///<summary>난이도</summary>
     public readonly int DifficultyNum;
@@ -35,7 +35,7 @@ public class TimeData
     public TimeData(BinaryReader reader)
     {
         TID = reader.ReadInt32();
-        Time = reader.ReadInt32();
+        NextTime = reader.ReadInt32();
         DifficultyNum = reader.ReadInt32();
         int difficultytext = reader.ReadInt32();
         DifficultyText = Encoding.UTF8.GetString(reader.ReadBytes(difficultytext));
