@@ -8,27 +8,45 @@ public class StageManager : BehaviourSingleton<StageManager>
     private List<Difficulty> _difficultyList;
 
     private Stage _stage;
+    private bool isDataLoaded = false;
 
     private void Awake()
     {
-
+        Global.Instance.OnDataLoaded += OnLoadDataFunc;
         Init();
+    }
+
+    private void Start()
+    {
+        
     }
 
     private void Init()
     {
-        _difficultyList = new List<Difficulty>(_difficultySOList.Count);
-
+        // TODO: 로드된 데이터를 기반으로 만들어야 할듯?
         _stage = new Stage(1, 1, 1, 1);
+    }
 
-        // 난이도 리스트 초기화
-        foreach (DifficultySO difficultySO in _difficultySOList)
+    private void OnLoadDataFunc()
+    {
+        var timeDataList = DataTable.Instance.GetTimeDataList();
+
+        foreach(TimeData timeData in timeDataList)
         {
-            // TODO: 예외 처리?
-
-            // TODO: 난이도 리스트에 추가
-            _stage.AddDifficulty(new Difficulty());
+            _stage.AddDifficultyList(new Difficulty(timeData.TID, timeData.Time,
+             timeData.DifficultyNum, timeData.DifficultyText,
+                timeData.EnemyCountMultiplier, timeData.EnemyHealthMultiplier,
+                 timeData.EnemyDamageMultiplier, timeData.EliteSpawnRate, timeData.EnemySpawnFrequency));
         }
+
+        isDataLoaded = true;
+        
+        Debug.Log("난이도 리스트 초기화 완료");
+    }
+
+    private void UpdateStage()
+    {
+        _stage.IncreaseDifficulty();
     }
 
     public int GetStageLevel()
@@ -36,16 +54,17 @@ public class StageManager : BehaviourSingleton<StageManager>
         return _stage.CurrentDifficultyLevel;
     }
 
-    public void GetBaseEnemySpawnFrequency(int stageLevel)
+    public float GetBaseEnemySpawnFrequency()
     {
+        return _stage.MultiplyBaseEnemySpawnFrequency();
     }
 
-    public void GetBaseEnemySpawnDensity(int stageLevel)
+    public float GetBaseEnemySpawnDensity()
     {
+        return _stage.MultiplyBaseEnemySpawnDensity();
     }
 
-    public void GetAvailableMonsterTypes(int stageLevel)
+    public void GetAvailableMonsterTypes()
     {
-
     }
 }

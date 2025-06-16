@@ -73,22 +73,14 @@ public class Stage
         _currentDifficultyLevel = difficultyLevel;
      }
 
-     public void MultiplyBaseEnemySpawnFrequency(float multiplier)
+     public float MultiplyBaseEnemySpawnFrequency()
      {
-        if(multiplier <= 0)
-        {
-            throw new Exception("배수는 0보다 커야 합니다.");
-        }
-        _baseEnemySpawnFrequency *= multiplier;
+        return _baseEnemySpawnFrequency * _difficultyList[_currentDifficultyLevel - 1].EnemySpawnFrequency;
      }
 
-     public void MultiplyBaseEnemySpawnDensity(float multiplier)
+     public float MultiplyBaseEnemySpawnDensity()
      {
-        if(multiplier <= 0)
-        {
-            throw new Exception("배수는 0보다 커야 합니다.");
-        }
-        _baseEnemySpawnDensity *= multiplier;
+        return _baseEnemySpawnDensity * _difficultyList[_currentDifficultyLevel - 1].EnemyCountMultiplier;
      }
 
 
