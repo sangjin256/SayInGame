@@ -15,7 +15,7 @@ public class RankingManager : BehaviourSingleton<RankingManager>
     private void Init()
     {
         //_repository = new RankingBoardRepository();
-        // ·Îµå
+        // ï¿½Îµï¿½
         _rankingBoard = new RankingBoard();
     }
 
@@ -27,6 +27,6 @@ public class RankingManager : BehaviourSingleton<RankingManager>
 
     public List<RankingDTO> GetRankList(int count)
     {
-
+        
     }
 }
