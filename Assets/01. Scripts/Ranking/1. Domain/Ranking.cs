@@ -11,13 +11,15 @@ public class Ranking
 
 	public Ranking(string email, string nickname, int killCount)
 	{
-		if (email.IsNullOrEmpty())
+        var emailSpecification = new AccountEmailSpecification();
+        if (!emailSpecification.IsSatisfiedBy(email))
+        {
+            throw new Exception(emailSpecification.ErrorMessage);
+        }
+		var nickNameSpecification = new AccountNicknameSpecification();
+		if (!nickNameSpecification.IsSatisfiedBy(nickname))
 		{
-			throw new Exception("이메일은 비어있을 수 없습니다.");
-		}
-		if (nickname.IsNullOrEmpty())
-		{
-			throw new Exception("닉네임은 비어있을 수 없습니다.");
+			throw new Exception(nickNameSpecification.ErrorMessage);
 		}
 		if (killCount < 0)
 		{

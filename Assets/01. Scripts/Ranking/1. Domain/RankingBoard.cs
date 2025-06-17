@@ -39,12 +39,18 @@ public class RankingBoard
 
     public void UpdateRank(string email, string nickname, int killCount)
     {
-        if (email.IsNullOrEmpty())
+        var emailSpecification = new AccountEmailSpecification();
+        if (!emailSpecification.IsSatisfiedBy(email))
         {
-            throw new Exception("이메일이 비어있을 수 없습니다.");
+            throw new Exception(emailSpecification.ErrorMessage);
+        }
+        var nickNameSpecification = new AccountNicknameSpecification();
+        if (!nickNameSpecification.IsSatisfiedBy(nickname))
+        {
+            throw new Exception(nickNameSpecification.ErrorMessage);
         }
 
-        if(_rankDic.TryGetValue(email, out Ranking rank))
+        if (_rankDic.TryGetValue(email, out Ranking rank))
         {
             rank.AddKillCount(killCount);
         }
@@ -56,9 +62,15 @@ public class RankingBoard
 
     public RankingDTO GetRankDataByEmail(string email, string nickname)
     {
-        if (email.IsNullOrEmpty())
+        var emailSpecification = new AccountEmailSpecification();
+        if (!emailSpecification.IsSatisfiedBy(email))
         {
-            throw new Exception("이메일이 비어있을 수 없습니다.");
+            throw new Exception(emailSpecification.ErrorMessage);
+        }
+        var nickNameSpecification = new AccountNicknameSpecification();
+        if (!nickNameSpecification.IsSatisfiedBy(nickname))
+        {
+            throw new Exception(nickNameSpecification.ErrorMessage);
         }
 
         if (_rankDic.TryGetValue(email, out Ranking rank))
@@ -75,9 +87,15 @@ public class RankingBoard
 
     public int GetRankNumberByEmail(string email, string nickname)
     {
-        if (email.IsNullOrEmpty())
+        var emailSpecification = new AccountEmailSpecification();
+        if (!emailSpecification.IsSatisfiedBy(email))
         {
-            throw new Exception("이메일이 비어있을 수 없습니다.");
+            throw new Exception(emailSpecification.ErrorMessage);
+        }
+        var nickNameSpecification = new AccountNicknameSpecification();
+        if (!nickNameSpecification.IsSatisfiedBy(nickname))
+        {
+            throw new Exception(nickNameSpecification.ErrorMessage);
         }
 
         if (_rankDic.ContainsKey(email) == false)
