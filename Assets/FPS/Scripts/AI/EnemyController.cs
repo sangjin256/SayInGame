@@ -374,6 +374,7 @@ namespace Unity.FPS.AI
             }
 
             CurrencyManager.Instance.Add(ECurrencyType.Gold, 100);
+            RankingManager.Instance.AddKillCount(1);
 
             AchievementEvent achieveEvent = Events.AchievementEvent;
             achieveEvent.condition = EAchievementCondition.DronKillCount;
