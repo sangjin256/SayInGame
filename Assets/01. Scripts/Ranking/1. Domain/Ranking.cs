@@ -15,6 +15,10 @@ public class Ranking
         {
             throw new Exception("이메일은 비어있을 수 없습니다.");
         }
+        if (nickname.IsNullOrEmpty())
+        {
+            throw new Exception("닉네임은 비어있을 수 없습니다.");
+        }
         if(killCount < 0)
         {
             throw new Exception("킬카운트는 음수일 수 없습니다.");
