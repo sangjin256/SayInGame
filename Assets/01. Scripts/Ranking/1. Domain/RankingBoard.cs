@@ -1,4 +1,4 @@
-using NUnit.Framework;
+ï»¿using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +16,9 @@ public class RankingBoard
         _rankDic = new Dictionary<string, Ranking>();
     }
 
-    public RankingBoard(Dictionary<string, Ranking> rankDic)
+    public RankingBoard(RankingBoardDTO rankingBoardDTO)
     {
-        _rankDic = rankDic;
+        _rankDic = rankingBoardDTO.RankDic.ToDictionary(x => x.Key, x => new Ranking(x.Value.Email, x.Value.KillCount));
     }
 
     public List<RankingDTO> GetSortedRankList(int count)
@@ -41,7 +41,7 @@ public class RankingBoard
     {
         if (email.IsNullOrEmpty())
         {
-            throw new Exception("ÀÌ¸ŞÀÏÀÌ ºñ¾îÀÖÀ» ¼ö ¾ø½À´Ï´Ù.");
+            throw new Exception("ì´ë©”ì¼ì´ ë¹„ì–´ìˆì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
         }
 
         if(_rankDic.TryGetValue(email, out Ranking rank))
@@ -58,7 +58,7 @@ public class RankingBoard
     {
         if (email.IsNullOrEmpty())
         {
-            throw new Exception("ÀÌ¸ŞÀÏÀÌ ºñ¾îÀÖÀ» ¼ö ¾ø½À´Ï´Ù.");
+            throw new Exception("ì´ë©”ì¼ì´ ë¹„ì–´ìˆì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
         }
 
         if (_rankDic.TryGetValue(email, out Ranking rank))
@@ -77,7 +77,7 @@ public class RankingBoard
     {
         if (email.IsNullOrEmpty())
         {
-            throw new Exception("ÀÌ¸ŞÀÏÀÌ ºñ¾îÀÖÀ» ¼ö ¾ø½À´Ï´Ù.");
+            throw new Exception("ì´ë©”ì¼ì´ ë¹„ì–´ìˆì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
         }
 
         if (_rankDic.ContainsKey(email) == false)

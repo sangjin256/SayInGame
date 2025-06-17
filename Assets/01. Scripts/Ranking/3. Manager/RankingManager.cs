@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Unity.Tutorials.Core.Editor;
 using UnityEngine;
 
@@ -21,12 +21,18 @@ public class RankingManager : BehaviourSingleton<RankingManager>
         {
             _rankingBoard = new RankingBoard();
         }
+        else
+        {
+            _rankingBoard = new RankingBoard(loadedRankingBoard);
+        }
     }
 
     public void AddKillCount(int killCount)
     {
         string email = AccountManager.Instance.GetCurrentEmail();
         _rankingBoard.UpdateRank(email, killCount);
+
+        _repository.Save(_rankingBoard.ToDTO());
     }
 
     public List<RankingDTO> GetSortedRankList(int count)
@@ -44,11 +50,5 @@ public class RankingManager : BehaviourSingleton<RankingManager>
     {
         string email = AccountManager.Instance.GetCurrentEmail();
         return _rankingBoard.GetRankDataByEmail(email);
-    }
-
-    public RankingDTO GetPlayerRankData()
-    {
-        string email = AccountManager.Instance.GetCurrentEmail();
-        return _rankingBoard.FindByEmail(email);
     }
 }
