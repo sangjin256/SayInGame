@@ -15,7 +15,7 @@ public class RankingManager : BehaviourSingleton<RankingManager>
     private void Init()
     {
         //_repository = new RankingBoardRepository();
-        // ï¿½Îµï¿½
+        // ·Îµå
         _rankingBoard = new RankingBoard();
     }
 
@@ -25,8 +25,8 @@ public class RankingManager : BehaviourSingleton<RankingManager>
         _rankingBoard.UpdateRank(email, killCount);
     }
 
-    public List<RankingDTO> GetRankList(int count)
+    public List<RankingDTO> GetSortedRankList(int count)
     {
-        
+        return _rankingBoard.GetSortedRankList(count);
     }
 }
