@@ -45,10 +45,4 @@ public class RankingManager : BehaviourSingleton<RankingManager>
         string email = AccountManager.Instance.GetCurrentEmail();
         return _rankingBoard.GetRankDataByEmail(email);
     }
-
-    public RankingDTO GetPlayerRankData()
-    {
-        string email = AccountManager.Instance.GetCurrentEmail();
-        return _rankingBoard.FindByEmail(email);
-    }
 }
