@@ -24,7 +24,7 @@ public class UI_Ranking : MonoBehaviour
 
     public void RefreshRankingList()
     {
-        List<RankingDTO> rankingList = RankingManager.Instance.GetSortedRankList();
+        List<RankingDTO> rankingList = RankingManager.Instance.GetSortedRankList(50);
         
         SetSlotSize(rankingList.Count);
         
