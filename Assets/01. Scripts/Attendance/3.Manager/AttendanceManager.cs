@@ -9,7 +9,6 @@ public class AttendanceManager : BehaviourSingleton<AttendanceManager>
 {
     private AttendanceCalendar _attendanceCalendar;
     public AttendanceCalendarDTO Attendance => new AttendanceCalendarDTO(_attendanceCalendar);
-    // �������丮 �߰�
     private AttendanceCalendarRepository _repository;
     [SerializeField]
     private List<AttendanceSO> _metaDatas;
@@ -31,25 +30,32 @@ public class AttendanceManager : BehaviourSingleton<AttendanceManager>
         currentData = _metaDatas.Find(x => x.Month == now.Month);
         if(currentData == null)
         {
-            throw new Exception("SO �����Ͱ� �����ϴ�.");
+            throw new Exception("SO 데이터가 없습니다.");
         }
 
         string email = AccountManager.Instance.CurrencAccount?.Email;
         if (email.IsNullOrEmpty())
         {
-            throw new Exception("�α��� �����Ͱ� �����ϴ�.");
+            throw new Exception("이메일은 비어있을 수 없습니다.");
+        }
+
+        List<int> accumulateDays = currentData.AccumulateAttendances?.Select(x => x.Day).ToList();
+        if(accumulateDays == null)
+        {
+            throw new Exception("누적 출석 데이터가 없습니다.");
         }
 
         _repository = new AttendanceCalendarRepository();
         AttendanceCalendarDTO loadedData = _repository.Load(email);
         if (loadedData == null)
         {
-            _attendanceCalendar = new AttendanceCalendar(email, currentData.Attendances.Count);
+            _attendanceCalendar = new AttendanceCalendar(email, currentData.Attendances.Count, accumulateDays);
         }
         else
         {
-            Dictionary<int, DailyAttendanceEntry> entries = loadedData.Entries.ToDictionary(x => x.Key, x => new DailyAttendanceEntry(x.Value.IsChecked, x.Value.IsRewardClaimed));
-            _attendanceCalendar = new AttendanceCalendar(email, loadedData.LastAttendanceDate, loadedData.AccumulatedAttendanceDay, entries);
+            Dictionary<int, AttendanceEntry> entries = loadedData.Entries.ToDictionary(x => x.Key, x => new AttendanceEntry(x.Value.IsChecked, x.Value.IsRewardClaimed));
+            Dictionary<int, AttendanceEntry> accumulateEntries = loadedData.AccumulateEntries.ToDictionary(x => x.Key, x => new AttendanceEntry(x.Value.IsChecked, x.Value.IsRewardClaimed));
+            _attendanceCalendar = new AttendanceCalendar(email, loadedData.LastAttendanceDate, loadedData.AccumulatedAttendanceDay, entries, accumulateEntries);
         }
 
         OnDataLoaded?.Invoke();
@@ -74,6 +80,21 @@ public class AttendanceManager : BehaviourSingleton<AttendanceManager>
         if (_attendanceCalendar.TryClaimReward(day))
         {
             AttendanceInfo attendanceInfo = currentData.Attendances[day - 1];
+            CurrencyManager.Instance.Add(attendanceInfo.Type, attendanceInfo.Value);
+            OnDataChanged?.Invoke();
+            _repository.Save(new AttendanceCalendarDTO(_attendanceCalendar));
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool TryClaimAccumulateReward(int day)
+    {
+        if (_attendanceCalendar.TryClaimAccumulateReward(day))
+        {
+            AttendanceInfo attendanceInfo = currentData.AccumulateAttendances.Find(x => x.Day == day);
+
             CurrencyManager.Instance.Add(attendanceInfo.Type, attendanceInfo.Value);
             OnDataChanged?.Invoke();
             _repository.Save(new AttendanceCalendarDTO(_attendanceCalendar));
