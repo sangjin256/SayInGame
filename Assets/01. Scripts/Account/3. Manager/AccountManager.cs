@@ -1,7 +1,8 @@
-using System.Runtime.InteropServices.WindowsRuntime;
+ï»¿using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Cryptography;
 using System.Text;
 using Unity.Tutorials.Core.Editor;
+using UnityEditor;
 using UnityEngine;
 
 public class AccountManager : BehaviourSingleton<AccountManager>
@@ -28,10 +29,10 @@ public class AccountManager : BehaviourSingleton<AccountManager>
         AccountDTO accountDTO = _accountRepository.Find(email);
         if(accountDTO != null)
         {
-            return new Result(false, "ÀÌ¹Ì °¡ÀÔÇÑ ÀÌ¸ŞÀÏÀÔ´Ï´Ù.");
+            return new Result(false, "ì´ë¯¸ ê°€ì…í•œ ì´ë©”ì¼ì…ë‹ˆë‹¤.");
         }
 
-        // ºñ¹Ğ¹øÈ£ ±ÔÄ¢ °ËÁõ
+        // ë¹„ë°€ë²ˆí˜¸ ê·œì¹™ ê²€ì¦
 
         string encryptedPassword = CryptoUtil.Encryption(password, SALT);
         Account account = new Account(email, nickname, encryptedPassword);
@@ -58,12 +59,12 @@ public class AccountManager : BehaviourSingleton<AccountManager>
     {
         if(_myAccount == null)
         {
-            throw new System.Exception("ÇöÀç °èÁ¤ÀÌ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+            throw new System.Exception("í˜„ì¬ ê³„ì •ì´ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
 
         if (_myAccount.Email.IsNullOrEmpty())
         {
-            throw new System.Exception("ÀÌ¸ŞÀÏÀÌ ¿Ã¹Ù¸£Áö ¾Ê½À´Ï´Ù.");
+            throw new System.Exception("ì´ë©”ì¼ì´ ì˜¬ë°”ë¥´ì§€ ì•ŠìŠµë‹ˆë‹¤.");
         }
         return _myAccount.Email;
     }

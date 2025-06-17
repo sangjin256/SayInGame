@@ -7,6 +7,10 @@ public class RankingBoardDTO
 
     public RankingBoardDTO(Dictionary<string, RankingDTO> rankDic)
     {
-        RankDic = rankDic;
+        if(rankDic == null)
+        {
+            RankDic = new Dictionary<string, RankingDTO>();
+        }
+        else RankDic = rankDic;
     }
 }
