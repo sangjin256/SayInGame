@@ -14,6 +14,12 @@ public class UI_Ranking : MonoBehaviour
         _rankingSlotList = new List<UI_RankingSlot>();
         gameObject.SetActive(false);
     }
+
+    private void OnEnable()
+    {
+        RefreshMyRankingSlot();
+        RefreshRankingList();
+    }
     
     public void RefreshMyRankingSlot()
     {
