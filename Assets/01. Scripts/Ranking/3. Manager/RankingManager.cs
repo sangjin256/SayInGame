@@ -29,8 +29,9 @@ public class RankingManager : BehaviourSingleton<RankingManager>
 
     public void AddKillCount(int killCount)
     {
-        string email = AccountManager.Instance.GetCurrentEmail();
-        _rankingBoard.UpdateRank(email, killCount);
+        AccountDTO currentAccount = AccountManager.Instance.CurrencAccount;
+        
+        _rankingBoard.UpdateRank(currentAccount.Email, currentAccount.NickName, killCount);
 
         _repository.Save(_rankingBoard.ToDTO());
     }
@@ -42,13 +43,14 @@ public class RankingManager : BehaviourSingleton<RankingManager>
 
     public int GetPlayerRankNumber()
     {
-        string email = AccountManager.Instance.GetCurrentEmail();
-        return _rankingBoard.GetRankNumberByEmail(email);
+        AccountDTO currentAccount = AccountManager.Instance.CurrencAccount;
+        
+        return _rankingBoard.GetRankNumberByEmail(currentAccount.Email, currentAccount.NickName);
     }
 
     public RankingDTO GetPlayerRankData()
     {
-        string email = AccountManager.Instance.GetCurrentEmail();
-        return _rankingBoard.GetRankDataByEmail(email);
+        AccountDTO currentAccount = AccountManager.Instance.CurrencAccount;
+        return _rankingBoard.GetRankDataByEmail(currentAccount.Email, currentAccount.NickName);
     }
 }
