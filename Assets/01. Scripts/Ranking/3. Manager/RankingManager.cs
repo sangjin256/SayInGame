@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RankingManager : BehaviourSingleton<RankingManager>
 {
-    //private RankingBoardRepository _repository;
+    private RankingRepository _repository;
     private RankingBoard _rankingBoard;
 
     private void Start()
@@ -14,9 +14,13 @@ public class RankingManager : BehaviourSingleton<RankingManager>
 
     private void Init()
     {
-        //_repository = new RankingBoardRepository();
-        // ·Îµå
-        _rankingBoard = new RankingBoard();
+        _repository = new RankingRepository();
+        RankingBoardDTO loadedRankingBoard = _repository.Load();
+
+        if(loadedRankingBoard == null)
+        {
+            _rankingBoard = new RankingBoard();
+        }
     }
 
     public void AddKillCount(int killCount)
@@ -28,5 +32,23 @@ public class RankingManager : BehaviourSingleton<RankingManager>
     public List<RankingDTO> GetSortedRankList(int count)
     {
         return _rankingBoard.GetSortedRankList(count);
+    }
+
+    public int GetPlayerRankNumber()
+    {
+        string email = AccountManager.Instance.GetCurrentEmail();
+        return _rankingBoard.GetRankNumberByEmail(email);
+    }
+
+    public RankingDTO GetPlayerRankData()
+    {
+        string email = AccountManager.Instance.GetCurrentEmail();
+        return _rankingBoard.GetRankDataByEmail(email);
+    }
+
+    public RankingDTO GetPlayerRankData()
+    {
+        string email = AccountManager.Instance.GetCurrentEmail();
+        return _rankingBoard.FindByEmail(email);
     }
 }
