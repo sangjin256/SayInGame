@@ -5,10 +5,11 @@ using System;
 public class Ranking
 {
     public readonly string Email;
+    public readonly string Nickname;
     private int _killCount;
     public int KillCount => _killCount;
 
-    public Ranking(string email, int killCount)
+    public Ranking(string email, string nickname, int killCount)
     {
         if (email.IsNullOrEmpty())
         {
@@ -20,6 +21,7 @@ public class Ranking
         }
 
         Email = email;
+        Nickname = nickname;
         _killCount = killCount;
     }
 
@@ -35,6 +37,6 @@ public class Ranking
 
     public RankingDTO ToDTO()
     {
-        return new RankingDTO(Email, _killCount);
+        return new RankingDTO(Email, Nickname, _killCount);
     }
 }

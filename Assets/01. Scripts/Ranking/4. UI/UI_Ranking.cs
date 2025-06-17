@@ -25,7 +25,7 @@ public class UI_Ranking : MonoBehaviour
     {
         int myRanking = RankingManager.Instance.GetPlayerRankNumber();
         RankingDTO myRankingData = RankingManager.Instance.GetPlayerRankData();
-        _myRankingSlot.RefreshRankingSlot(myRanking, myRankingData.Email, myRankingData.KillCount);
+        _myRankingSlot.RefreshRankingSlot(myRanking, myRankingData.Nickname, myRankingData.KillCount);
     }
 
     public void RefreshRankingList()
@@ -38,7 +38,7 @@ public class UI_Ranking : MonoBehaviour
         {
             _rankingSlotList[i].RefreshRankingSlot(
                 i + 1,
-                rankingList[i].Email,
+                rankingList[i].Nickname,
                 rankingList[i].KillCount
             );
             _rankingSlotList[i].transform.SetSiblingIndex(i);

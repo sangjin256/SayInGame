@@ -18,7 +18,7 @@ public class RankingBoard
 
     public RankingBoard(RankingBoardDTO rankingBoardDTO)
     {
-        _rankDic = rankingBoardDTO.RankDic.ToDictionary(x => x.Key, x => new Ranking(x.Value.Email, x.Value.KillCount));
+        _rankDic = rankingBoardDTO.RankDic.ToDictionary(x => x.Key, x => new Ranking(x.Value.Email, x.Value.Nickname, x.Value.KillCount));
     }
 
     public List<RankingDTO> GetSortedRankList(int count)
@@ -37,7 +37,7 @@ public class RankingBoard
             .ToList();
     }
 
-    public void UpdateRank(string email, int killCount)
+    public void UpdateRank(string email, string nickname, int killCount)
     {
         if (email.IsNullOrEmpty())
         {
@@ -50,11 +50,11 @@ public class RankingBoard
         }
         else
         {
-            _rankDic.Add(email, new Ranking(email, killCount));
+            _rankDic.Add(email, new Ranking(email, nickname, killCount));
         }
     }
 
-    public RankingDTO GetRankDataByEmail(string email)
+    public RankingDTO GetRankDataByEmail(string email, string nickname)
     {
         if (email.IsNullOrEmpty())
         {
@@ -67,13 +67,13 @@ public class RankingBoard
         }
         else
         {
-            _rankDic.Add(email, new Ranking(email, 0));
+            _rankDic.Add(email, new Ranking(email, nickname, 0));
             return _rankDic[email].ToDTO();
         }
 
     }
 
-    public int GetRankNumberByEmail(string email)
+    public int GetRankNumberByEmail(string email, string nickname)
     {
         if (email.IsNullOrEmpty())
         {
@@ -82,7 +82,7 @@ public class RankingBoard
 
         if (_rankDic.ContainsKey(email) == false)
         {
-            _rankDic.Add(email, new Ranking(email, 0));
+            _rankDic.Add(email, new Ranking(email, nickname, 0));
         }
 
         return GetSortedRankList().FindIndex(x => x.Email == email) + 1;
