@@ -1,4 +1,4 @@
-using Unity.Tutorials.Core.Editor;
+ï»¿using Unity.Tutorials.Core.Editor;
 using UnityEngine;
 using System;
 
@@ -12,11 +12,11 @@ public class Ranking
     {
         if (email.IsNullOrEmpty())
         {
-            throw new Exception("ÀÌ¸ŞÀÏÀº ºñ¾îÀÖÀ» ¼ö ¾ø½À´Ï´Ù.");
+            throw new Exception("ì´ë©”ì¼ì€ ë¹„ì–´ìˆì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
         }
         if(killCount < 0)
         {
-            throw new Exception("Å³Ä«¿îÆ®´Â À½¼öÀÏ ¼ö ¾ø½À´Ï´Ù.");
+            throw new Exception("í‚¬ì¹´ìš´íŠ¸ëŠ” ìŒìˆ˜ì¼ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
         }
 
         Email = email;
@@ -27,7 +27,7 @@ public class Ranking
     {
         if(count <= 0)
         {
-            throw new Exception("Ä«¿îÆ®´Â 0 ÀÌÇÏÀÏ ¼ö ¾ø½À´Ï´Ù.");
+            throw new Exception("ì¹´ìš´íŠ¸ëŠ” 0 ì´í•˜ì¼ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
         }
 
         _killCount += count;
