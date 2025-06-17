@@ -1,16 +1,16 @@
 using UnityEngine;
+using TMPro;
 
 public class UI_RankingSlot : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private TextMeshProUGUI rankText;
+    [SerializeField] private TextMeshProUGUI nameText;
+    [SerializeField] private TextMeshProUGUI scoreText;
 
-    // Update is called once per frame
-    void Update()
+    public void RefreshRankingSlot(int rank, string name, int score)
     {
-        
+        rankText.text = rank.ToString();
+        nameText.text = name;
+        scoreText.text = score.ToString();
     }
 }
