@@ -30,6 +30,13 @@ public class RankingBoard
             .ToList();
     }
 
+    private List<Ranking> GetSortedRankList()
+    {
+        return _rankDic.Values
+            .OrderByDescending(dto => dto.KillCount)
+            .ToList();
+    }
+
     public void UpdateRank(string email, int killCount)
     {
         if (email.IsNullOrEmpty())
@@ -58,7 +65,26 @@ public class RankingBoard
         {
             return rank.ToDTO();
         }
+        else
+        {
+            _rankDic.Add(email, new Ranking(email, 0));
+            return _rankDic[email].ToDTO();
+        }
 
-        return null;
+    }
+
+    public int GetRankByEmail(string email)
+    {
+        if (email.IsNullOrEmpty())
+        {
+            throw new Exception("이메일이 비어있을 수 없습니다.");
+        }
+
+        if (_rankDic.ContainsKey(email) == false)
+        {
+            _rankDic.Add(email, new Ranking(email, 0));
+        }
+
+        return GetSortedRankList().FindIndex(x => x.Email == email) + 1;
     }
 }

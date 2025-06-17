@@ -29,4 +29,10 @@ public class RankingManager : BehaviourSingleton<RankingManager>
     {
         return _rankingBoard.GetSortedRankList(count);
     }
+
+    public int GetPlayerRank()
+    {
+        string email = AccountManager.Instance.GetCurrentEmail();
+        return _rankingBoard.GetRankByEmail(email);
+    }
 }
