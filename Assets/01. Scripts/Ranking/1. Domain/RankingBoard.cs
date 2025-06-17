@@ -87,4 +87,10 @@ public class RankingBoard
 
         return GetSortedRankList().FindIndex(x => x.Email == email) + 1;
     }
+
+    public RankingBoardDTO ToDTO()
+    {
+        return new RankingBoardDTO(
+        _rankDic.ToDictionary(pair => pair.Key, pair => pair.Value.ToDTO()));
+    }
 }
