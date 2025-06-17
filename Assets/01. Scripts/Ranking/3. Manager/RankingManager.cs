@@ -30,9 +30,15 @@ public class RankingManager : BehaviourSingleton<RankingManager>
         return _rankingBoard.GetSortedRankList(count);
     }
 
-    public int GetPlayerRank()
+    public int GetPlayerRankNumber()
     {
         string email = AccountManager.Instance.GetCurrentEmail();
-        return _rankingBoard.GetRankByEmail(email);
+        return _rankingBoard.GetRankNumberByEmail(email);
+    }
+
+    public RankingDTO GetPlayerRankData()
+    {
+        string email = AccountManager.Instance.GetCurrentEmail();
+        return _rankingBoard.GetRankDataByEmail(email);
     }
 }

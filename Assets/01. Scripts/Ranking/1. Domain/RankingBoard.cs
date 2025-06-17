@@ -54,7 +54,7 @@ public class RankingBoard
         }
     }
 
-    public RankingDTO FindByEmail(string email)
+    public RankingDTO GetRankDataByEmail(string email)
     {
         if (email.IsNullOrEmpty())
         {
@@ -73,7 +73,7 @@ public class RankingBoard
 
     }
 
-    public int GetRankByEmail(string email)
+    public int GetRankNumberByEmail(string email)
     {
         if (email.IsNullOrEmpty())
         {
