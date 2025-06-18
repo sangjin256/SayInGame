@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 
 public class UI_RankingSlot : MonoBehaviour
@@ -9,8 +9,8 @@ public class UI_RankingSlot : MonoBehaviour
 
     public void RefreshRankingSlot(int rank, string name, int score)
     {
-        rankText.text = rank.ToString();
+        rankText.text = rank.ToString("N1");
         nameText.text = name;
-        scoreText.text = score.ToString();
+        scoreText.text = score.ToString("N1");
     }
 }
