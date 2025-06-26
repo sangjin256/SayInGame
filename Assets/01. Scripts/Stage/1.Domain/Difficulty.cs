@@ -4,7 +4,7 @@ using UnityEngine;
 public class Difficulty
 {
     public readonly int TID; //TID
-    public readonly int DifficultyStartTime; // 현재 시간(초)
+    public readonly int NextDifficultyStartTime; // 다음 난이도 시간(초)
     public readonly int DifficultyLevel; // 난이도
     public readonly string DifficultyText; // 난이도 설명: 쉬움, 보통, 어려움...
     public readonly float EnemyCountMultiplier; // 몹 수 배수
@@ -63,7 +63,7 @@ public class Difficulty
         }
         
         TID = tid;
-        DifficultyStartTime = difficultyStartTime;
+        NextDifficultyStartTime = difficultyStartTime;
         DifficultyLevel = difficultyLevel;
         DifficultyText = difficultyText;
         EnemyCountMultiplier = enemyCountMultiplier;

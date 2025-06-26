@@ -1,7 +1,7 @@
 ﻿public class DifficultyDTO
 {
     public int TID; //TID
-    public int DifficultyStartTime; // 현재 시간(초)
+    public int NextDifficultyStartTime; // 다음 난이도 시간(초)
     public int DifficultyLevel; // 난이도
     public string DifficultyText; // 난이도 설명: 쉬움, 보통, 어려움...
     public float EnemyCountMultiplier; // 몹 수 배수
@@ -13,7 +13,7 @@
     public DifficultyDTO(Difficulty difficulty)
     {
         TID = difficulty.TID;
-        DifficultyStartTime = difficulty.DifficultyStartTime;
+        NextDifficultyStartTime = difficulty.NextDifficultyStartTime;
         DifficultyLevel = difficulty.DifficultyLevel;
         DifficultyText = difficulty.DifficultyText;
         EnemyCountMultiplier = difficulty.EnemyCountMultiplier;

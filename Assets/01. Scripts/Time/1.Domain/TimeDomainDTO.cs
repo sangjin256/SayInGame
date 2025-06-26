@@ -13,7 +13,15 @@ public class TimeDomainDTO
 
     public TimeDomainDTO(TimeDomain time)
     {
-        CurrentTime = time.CurrentTime;
-        NextDifficultyChangeTime = time.NextDifficultyChangeTime;
+        if(time == null)
+        {
+            CurrentTime = 0;
+            NextDifficultyChangeTime = 0;
+        }
+        else
+        {
+            CurrentTime = time.CurrentTime;
+            NextDifficultyChangeTime = time.NextDifficultyChangeTime;
+        }
     }
 }

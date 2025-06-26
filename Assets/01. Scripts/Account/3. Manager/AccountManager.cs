@@ -1,6 +1,8 @@
-using System.Runtime.InteropServices.WindowsRuntime;
+﻿using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Cryptography;
 using System.Text;
+using Unity.Tutorials.Core.Editor;
+using UnityEditor;
 using UnityEngine;
 
 public class AccountManager : BehaviourSingleton<AccountManager>
@@ -27,10 +29,10 @@ public class AccountManager : BehaviourSingleton<AccountManager>
         AccountDTO accountDTO = _accountRepository.Find(email);
         if(accountDTO != null)
         {
-            return new Result(false, "�̹� ������ �̸����Դϴ�.");
+            return new Result(false, "이미 가입한 이메일입니다.");
         }
 
-        // ��й�ȣ ��Ģ ����
+        // 비밀번호 규칙 검증
 
         string encryptedPassword = CryptoUtil.Encryption(password, SALT);
         Account account = new Account(email, nickname, encryptedPassword);
@@ -51,5 +53,19 @@ public class AccountManager : BehaviourSingleton<AccountManager>
         }
 
         return false;
+    }
+
+    public string GetCurrentEmail()
+    {
+        if(_myAccount == null)
+        {
+            throw new System.Exception("현재 계정이 연결되지 않았습니다.");
+        }
+
+        if (_myAccount.Email.IsNullOrEmpty())
+        {
+            throw new System.Exception("이메일이 올바르지 않습니다.");
+        }
+        return _myAccount.Email;
     }
 }
